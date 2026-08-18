@@ -1,0 +1,273 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Sora:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Typography System */
+  --font-heading: 'Sora', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  --fs-xs: 0.8rem;
+  --fs-sm: 0.9rem;
+  --fs-base: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.75rem;
+  --fs-2xl: 2.5rem;
+  --fs-3xl: 3.5rem;
+
+  --lh-tight: 1.15;
+  --lh-normal: 1.6;
+
+  /* Monochrome Color Palette */
+  --color-bg: #ffffff;
+  --color-surface: #fafafa;
+  --color-surface-hover: #f4f4f5;
+  --color-text: #111111;
+  --color-text-muted: #666666;
+  --color-border: #e5e5e5;
+  --color-primary: #111111;
+  --color-primary-hover: #000000;
+  --color-inverse-bg: #111111;
+  --color-inverse-text: #ffffff;
+
+  /* Standardized Spacing Scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 1rem;
+  --space-4: 1.5rem;
+  --space-5: 2.5rem;
+  --space-6: 4rem;
+  --space-7: 6rem;
+
+  /* Framework Compatibility Tokens */
+  --background: #ffffff;
+  --foreground: #111111;
+  --card: #ffffff;
+  --card-foreground: #111111;
+  --popover: #ffffff;
+  --popover-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #ffffff;
+  --secondary: #f4f4f5;
+  --secondary-foreground: #111111;
+  --muted: #f4f4f5;
+  --muted-foreground: #666666;
+  --accent: #f4f4f5;
+  --accent-foreground: #111111;
+  --destructive: #111111;
+  --destructive-foreground: #ffffff;
+  --border: #e5e5e5;
+  --input: #e5e5e5;
+  --ring: #111111;
+  --radius: 1rem;
+
+  font-family: var(--font-body);
+}
+
+.dark {
+  --color-bg: #0d0d0f;
+  --color-surface: #141417;
+  --color-surface-hover: #1c1c21;
+  --color-text: #f5f5f5;
+  --color-text-muted: #9e9e9e;
+  --color-border: #26262b;
+  --color-primary: #f5f5f5;
+  --color-primary-hover: #ffffff;
+  --color-inverse-bg: #ffffff;
+  --color-inverse-text: #111111;
+
+  --background: #0d0d0f;
+  --foreground: #f5f5f5;
+  --card: #141417;
+  --card-foreground: #f5f5f5;
+  --popover: #141417;
+  --popover-foreground: #f5f5f5;
+  --primary: #f5f5f5;
+  --primary-foreground: #111111;
+  --secondary: #1c1c21;
+  --secondary-foreground: #f5f5f5;
+  --muted: #1c1c21;
+  --muted-foreground: #9e9e9e;
+  --accent: #1c1c21;
+  --accent-foreground: #f5f5f5;
+  --destructive: #f5f5f5;
+  --destructive-foreground: #111111;
+  --border: #26262b;
+  --input: #26262b;
+  --ring: #f5f5f5;
+}
+
+/* Typography Rules */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.025em;
+  font-weight: 700;
+}
+
+body, p, span, li, a, input, select, textarea {
+  font-family: var(--font-body);
+  line-height: var(--lh-normal);
+}
+
+body {
+  overflow-x: hidden;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+/* Card System with Layered Soft Shadows */
+.card,
+.modern-card,
+.bento-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 16px;
+  padding: var(--space-4);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.04);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease;
+}
+
+.dark .card,
+.dark .modern-card,
+.dark .bento-card {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.3), 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.card:hover,
+.modern-card:hover,
+.bento-card:hover {
+  transform: translateY(-4px);
+  border-color: #a3a3a3;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06), 0 16px 32px rgba(0, 0, 0, 0.08);
+}
+
+.dark .card:hover,
+.dark .modern-card:hover,
+.dark .bento-card:hover {
+  border-color: #525252;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4), 0 16px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* Standardized Button Interactive States */
+.btn-primary {
+  background: var(--color-primary);
+  color: var(--color-inverse-text);
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-family: var(--font-body);
+  transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: var(--color-primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-primary:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Focus Visible for All Interactive Elements */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* Scroll Reveal Animations - Default visible with smooth hardware-accelerated transitions */
+.reveal {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Initial Hero Fade-in */
+.hero-fade-in {
+  animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes heroFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Respect Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* Sleek Monochrome Scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-text-muted);
+}
+
+/* Marquee Utilities */
+@keyframes tickerMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: tickerMarquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
