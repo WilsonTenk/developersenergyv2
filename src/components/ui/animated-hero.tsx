@@ -23,10 +23,10 @@ interface HeroProps {
 }
 
 const DEFAULT_HERO_IMAGES = [
-  '/images/tde/Hero image.jpg',
-  '/images/tde/hero image 2.jpg',
-  '/images/tde/hero image3.jpg',
-  '/images/tde/hero image 4.jpg'
+  '/images/tde/hero-bg-1.jpg',
+  '/images/tde/hero-bg-2.jpg',
+  '/images/tde/hero-bg-3.jpg',
+  '/images/tde/hero-bg-4.jpg'
 ];
 
 function Hero({
