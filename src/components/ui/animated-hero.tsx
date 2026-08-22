@@ -23,10 +23,10 @@ interface HeroProps {
 }
 
 const DEFAULT_HERO_IMAGES = [
-  '/images/tde/hero-image-1.jpg',
-  '/images/tde/hero-image-2.jpg',
-  '/images/tde/hero-image-3.jpg',
-  '/images/tde/hero-image-4.jpg'
+  '/images/tde/Hero image.jpg',
+  '/images/tde/hero image 2.jpg',
+  '/images/tde/hero image3.jpg',
+  '/images/tde/hero image 4.jpg'
 ];
 
 function Hero({
@@ -35,7 +35,7 @@ function Hero({
   onContactDesk,
   backgroundImage,
   backgroundImages,
-  catchyPrefix = "Powering Growth in"
+  catchyPrefix = "Strategic Leader in"
 }: HeroProps) {
   const [titleIndex, setTitleIndex] = useState(0);
   const [bgImageIndex, setBgImageIndex] = useState(0);
@@ -53,21 +53,20 @@ function Hero({
 
   const titles = useMemo(
     () => [
-      "Energy Trading",
+      "Industrial Energy",
       "Oil & Gas",
+      "Energy Trading",
       "Renewables",
-      "Energy Infrastructure",
-      "Commodities",
-      "Industrial Energy"
+      "Commodities"
     ],
     []
   );
 
-  // Rotate title text every 2.4 seconds
+  // Rotate title text every 3.0 seconds
   useEffect(() => {
     const intervalId = setInterval(() => {
       setTitleIndex((prev) => (prev + 1) % titles.length);
-    }, 2400);
+    }, 3000);
     return () => clearInterval(intervalId);
   }, [titles]);
 
