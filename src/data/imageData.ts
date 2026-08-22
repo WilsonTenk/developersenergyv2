@@ -1,22 +1,23 @@
 // Centralized image paths — using real TDE brand images
+const BASE = import.meta.env.BASE_URL || '/';
 
 // Logo
-const logoImg = '/images/tde/tde-logo-new.png';
+const logoImg = `${BASE}images/tde/tde-logo-new.png`;
 
 // Hero slideshow images (4 dedicated hero images)
-const heroImg1 = '/images/tde/hero-bg-1.jpg';
-const heroImg2 = '/images/tde/hero-bg-2.jpg';
-const heroImg3 = '/images/tde/hero-bg-3.jpg';
-const heroImg4 = '/images/tde/hero-bg-4.jpg';
+const heroImg1 = `${BASE}images/tde/hero-bg-1.jpg`;
+const heroImg2 = `${BASE}images/tde/hero-bg-2.jpg`;
+const heroImg3 = `${BASE}images/tde/hero-bg-3.jpg`;
+const heroImg4 = `${BASE}images/tde/hero-bg-4.jpg`;
 
 // General TDE site images
-const tdeImageOne   = '/images/tde/tde-img-1.jpeg';
-const tdeImageTwo   = '/images/tde/tde-img-2.jpeg';
-const tdeImageThree = '/images/tde/tde-img-3.jpeg';
-const tdeImageFour  = '/images/tde/tde-img-4.jpeg';
-const tdeImageFive  = '/images/tde/tde-img-5.jpeg';
-const tdeImageSix   = '/images/tde/tde-img-6.jpeg';
-const tdeImageSeven = '/images/tde/tde-img-7.jpeg';
+const tdeImageOne   = `${BASE}images/tde/tde-img-1.jpeg`;
+const tdeImageTwo   = `${BASE}images/tde/tde-img-2.jpeg`;
+const tdeImageThree = `${BASE}images/tde/tde-img-3.jpeg`;
+const tdeImageFour  = `${BASE}images/tde/tde-img-4.jpeg`;
+const tdeImageFive  = `${BASE}images/tde/tde-img-5.jpeg`;
+const tdeImageSix   = `${BASE}images/tde/tde-img-6.jpeg`;
+const tdeImageSeven = `${BASE}images/tde/tde-img-7.jpeg`;
 
 export const SITE_IMAGES = {
   logo: logoImg,

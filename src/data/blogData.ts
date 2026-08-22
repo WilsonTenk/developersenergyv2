@@ -1,10 +1,12 @@
 import { BlogPost } from '../types';
 
-const tdeImg1 = '/images/tde/tde-image-1.jpeg';
-const tdeImg2 = '/images/tde/tde-image-2.jpeg';
-const tdeImg3 = '/images/tde/tde-image-3.jpeg';
-const tdeImg4 = '/images/tde/tde-image-4.jpeg';
-const tdeImg5 = '/images/tde/tde-image-5.jpeg';
+const BASE = import.meta.env.BASE_URL || '/';
+
+const tdeImg1 = `${BASE}images/tde/tde-img-1.jpeg`;
+const tdeImg2 = `${BASE}images/tde/tde-img-2.jpeg`;
+const tdeImg3 = `${BASE}images/tde/tde-img-3.jpeg`;
+const tdeImg4 = `${BASE}images/tde/tde-img-4.jpeg`;
+const tdeImg5 = `${BASE}images/tde/tde-img-5.jpeg`;
 
 export const BLOG_POSTS: BlogPost[] = [
   {

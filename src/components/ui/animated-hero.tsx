@@ -22,11 +22,12 @@ interface HeroProps {
   catchyPrefix?: string;
 }
 
+const BASE = import.meta.env.BASE_URL || '/';
 const DEFAULT_HERO_IMAGES = [
-  '/images/tde/hero-bg-1.jpg',
-  '/images/tde/hero-bg-2.jpg',
-  '/images/tde/hero-bg-3.jpg',
-  '/images/tde/hero-bg-4.jpg'
+  `${BASE}images/tde/hero-bg-1.jpg`,
+  `${BASE}images/tde/hero-bg-2.jpg`,
+  `${BASE}images/tde/hero-bg-3.jpg`,
+  `${BASE}images/tde/hero-bg-4.jpg`
 ];
 
 function Hero({
