@@ -34,6 +34,8 @@ interface HomeTabProps {
   onSelectArticle?: (article: any) => void;
 }
 
+const ANIMATED_TITLES = ['Industrial Energy', 'Oil & Gas', 'Energy Trading', 'Renewables', 'Commodities'];
+
 export const HomeTab: React.FC<HomeTabProps> = ({
   setActiveTab,
   onOpenQuoteModal,
@@ -42,6 +44,16 @@ export const HomeTab: React.FC<HomeTabProps> = ({
   // Hero background slider with 4 images & auto-transition
   const [heroSlideIndex, setHeroSlideIndex] = useState(0);
   const heroSlides = SITE_IMAGES.heroSlides;
+
+  // Animated Hero Title words
+  const [animatedTitleIndex, setAnimatedTitleIndex] = useState(0);
+
+  useEffect(() => {
+    const titleTimer = setInterval(() => {
+      setAnimatedTitleIndex((prev) => (prev + 1) % ANIMATED_TITLES.length);
+    }, 3000);
+    return () => clearInterval(titleTimer);
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -231,8 +243,22 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                   transition={{ duration: 0.5 }}
                   className="space-y-4"
                 >
-                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white">
-                    {currentHeroSlide.title}
+                  <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-[1.1] text-white flex flex-col items-start">
+                    <span className="block text-white mb-2">Strategic Leader in</span>
+                    <span className="block text-amber-500 overflow-hidden h-[1.2em] relative w-full">
+                      <AnimatePresence mode="popLayout">
+                        <motion.span
+                          key={animatedTitleIndex}
+                          initial={{ y: "100%", opacity: 0 }}
+                          animate={{ y: "0%", opacity: 1 }}
+                          exit={{ y: "-100%", opacity: 0 }}
+                          transition={{ type: "spring", stiffness: 60, damping: 15 }}
+                          className="absolute inset-0"
+                        >
+                          {ANIMATED_TITLES[animatedTitleIndex]}
+                        </motion.span>
+                      </AnimatePresence>
+                    </span>
                   </h1>
 
                   <p className="text-neutral-300 text-sm sm:text-base md:text-lg leading-relaxed max-w-2xl">
