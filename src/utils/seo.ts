@@ -13,14 +13,14 @@ export const TAB_SEO_DATA: Record<PageTab, TabSeoConfig> = {
   home: {
     title: 'The Developers Energy | Africa Energy & Commodity Services | Ghana',
     description: 'Premier West African physical petroleum trading, terminal storage logistics, NPA regulatory compliance, and trade finance advisory for investors, BDCs, and commodity traders in Ghana.',
-    keywords: 'The Developers Energy, Ghana petroleum trading, oil and gas Ghana, physical commodities, Gasoil 10ppm, Mogas 95, BDC trade finance, Letters of Credit, Tema terminal storage, Takoradi port off-take, NPA compliance, West Africa energy advisory, Kennedy Awuku Addo, Jeffery Kwesi Boateng',
+    keywords: 'The Developers Energy, Ghana petroleum trading, oil and gas Ghana, physical commodities, Gasoil 10ppm, Mogas 95, BDC trade finance, Letters of Credit, Tema terminal storage, Takoradi port off-take, NPA compliance, West Africa energy advisory, Kennedy Awuku Addo, Jeffrey Kwesi Boateng',
     canonicalPath: '',
     ogImage: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1600&auto=format&fit=crop'
   },
   about: {
     title: 'Corporate Profile & Executive Directorate | The Developers Energy Limited',
     description: 'Discover our corporate leadership, strategic governance tracks, executive director profiles, and West African physical energy commodity trade expertise in Accra, Ghana.',
-    keywords: 'Kennedy Awuku Addo, Jeffery Kwesi Boateng, energy executives Ghana, West Africa commodity traders, BDC license, energy infrastructure advisory, Ghana oil directors',
+    keywords: 'Kennedy Awuku Addo, Jeffrey Kwesi Boateng, energy executives Ghana, West Africa commodity traders, BDC license, energy infrastructure advisory, Ghana oil directors',
     canonicalPath: '#about',
     ogImage: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=1600&auto=format&fit=crop'
   },
