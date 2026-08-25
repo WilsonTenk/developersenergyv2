@@ -62,15 +62,15 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
       <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           
-          {/* Logo Placeholder Column */}
+          {/* Logo Column */}
           <div className="relative space-y-4">
             <div className="inline-flex items-center">
-              <div className="h-14 min-w-[4.75rem] px-4 py-2 rounded-2xl bg-white border border-neutral-200 shadow-[0_1px_3px_rgba(0,0,0,0.05),0_6px_16px_rgba(0,0,0,0.04)] flex items-center justify-center overflow-hidden">
+              <div className="h-16 sm:h-18 min-w-[6rem] px-3.5 py-2 rounded-2xl bg-white border border-neutral-200 shadow-[0_1px_3px_rgba(0,0,0,0.05),0_6px_16px_rgba(0,0,0,0.04)] flex items-center justify-center overflow-hidden">
                 <img
                   src={SITE_IMAGES.logo}
-                  alt="Company Logo"
+                  alt="The Developers Energy Logo"
                   referrerPolicy="no-referrer"
-                  className="h-full w-auto max-h-10 object-contain rounded-md"
+                  className="h-full w-auto max-h-14 sm:max-h-16 object-contain rounded-md"
                 />
               </div>
             </div>

@@ -1,200 +1,27 @@
-import React, { useState, useEffect } from 'react';
-import { INSIGHT_ARTICLES } from '../data/energyData';
+import React, { useState } from 'react';
 import { InsightArticle } from '../types';
-import { SITE_IMAGES } from '../data/imageData';
-import { HorizontalImageBanner } from './HorizontalImageBanner';
 import { AnimatedCounter } from './common/AnimatedCounter';
 import {
-  Search,
   FileText,
-  Calendar,
-  Clock,
-  ArrowRight,
   Mail,
   CheckCircle2,
-  Download,
-  ArrowLeft,
-  Upload,
-  User,
-  Printer,
-  FileUp,
-  ExternalLink,
-  ShieldAlert,
-  Check
+  Clock,
+  Sparkles,
+  ArrowRight,
+  TrendingUp,
+  Building2,
+  Scale,
+  Compass
 } from 'lucide-react';
 
 interface InsightsTabProps {
-  onSelectArticle: (article: InsightArticle) => void;
+  onSelectArticle?: (article: InsightArticle) => void;
   selectedArticleProp?: InsightArticle | null;
 }
 
-export const InsightsTab: React.FC<InsightsTabProps> = ({ onSelectArticle, selectedArticleProp }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('All');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+export const InsightsTab: React.FC<InsightsTabProps> = () => {
   const [subscribed, setSubscribed] = useState(false);
   const [subEmail, setSubEmail] = useState('');
-  
-  // Single page full article reading state
-  const [activeArticle, setActiveArticle] = useState<InsightArticle | null>(selectedArticleProp || null);
-
-  // PDF upload & view state
-  const [uploadedPdfUrl, setUploadedPdfUrl] = useState<string | null>(null);
-  const [uploadedPdfName, setUploadedPdfName] = useState<string | null>(null);
-  const [uploadedPdfSize, setUploadedPdfSize] = useState<string | null>(null);
-  const [downloadSuccess, setDownloadSuccess] = useState(false);
-
-  useEffect(() => {
-    if (selectedArticleProp) {
-      setActiveArticle(selectedArticleProp);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  }, [selectedArticleProp]);
-
-  const categories = [
-    'All',
-    'Ghana Energy Market Updates',
-    'West Africa Energy Insights',
-    'Petroleum Market Analysis',
-    'Commodity & Price Commentary',
-    'Regulatory Updates',
-    'Trade & Investment Briefs'
-  ];
-
-  const filteredArticles = INSIGHT_ARTICLES.filter((article) => {
-    const matchesCat = selectedCategory === 'All' || article.category === selectedCategory;
-    const matchesSearch =
-      article.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      article.excerpt.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesCat && matchesSearch;
-  });
-
-  const handleOpenArticle = (article: InsightArticle) => {
-    setActiveArticle(article);
-    setUploadedPdfUrl(null);
-    setUploadedPdfName(null);
-    setUploadedPdfSize(null);
-    onSelectArticle(article);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleBackToList = () => {
-    setActiveArticle(null);
-    setUploadedPdfUrl(null);
-    setUploadedPdfName(null);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Generate a valid PDF Blob URL for the article if no custom PDF was uploaded
-  const generatePdfBlobForArticle = (article: InsightArticle): string => {
-    const cleanTitle = article.title.replace(/[^\w\s-.,]/g, '');
-    const cleanAuthor = article.author.replace(/[^\w\s-.,]/g, '');
-    const cleanExcerpt = article.excerpt.replace(/[^\w\s-.,]/g, '');
-    const cleanCategory = article.category.replace(/[^\w\s-.,]/g, '');
-    const cleanDate = article.date.replace(/[^\w\s-.,]/g, '');
-    const p1 = (article.content[0] || '').replace(/[^\w\s-.,]/g, '');
-    const p2 = (article.content[1] || '').replace(/[^\w\s-.,]/g, '');
-
-    const pdfString = `%PDF-1.4
-1 0 obj
-<< /Type /Catalog /Pages 2 0 R >>
-endobj
-2 0 obj
-<< /Type /Pages /Kinds [ /Page ] /Count 1 /Kids [ 3 0 R ] >>
-endobj
-3 0 obj
-<< /Type /Page /Parent 2 0 R /Resources 4 0 R /MediaBox [ 0 0 612 792 ] /Contents 5 0 R >>
-endobj
-4 0 obj
-<< /Font << /F1 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >> /F2 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >> >> >>
-endobj
-5 0 obj
-<< /Length 650 >>
-stream
-BT
-/F1 16 Tf
-50 740 Td
-(THE DEVELOPERS ENERGY LIMITED) Tj
-0 -20 Td
-/F1 12 Tf
-(EXECUTIVE MARKET INTELLIGENCE REPORT) Tj
-0 -25 Td
-/F1 14 Tf
-(${cleanTitle.substring(0, 55)}) Tj
-0 -18 Td
-/F2 9 Tf
-(Category: ${cleanCategory}  |  Published: ${cleanDate}  |  Author: ${cleanAuthor}) Tj
-0 -25 Td
-/F1 11 Tf
-(EXECUTIVE BRIEF:) Tj
-0 -15 Td
-/F2 9.5 Tf
-(${cleanExcerpt.substring(0, 90)}) Tj
-0 -25 Td
-/F1 11 Tf
-(KEY REPORT ANALYSIS:) Tj
-0 -15 Td
-/F2 9.5 Tf
-(${p1.substring(0, 90)}) Tj
-0 -15 Td
-(${p2.substring(0, 90)}) Tj
-0 -30 Td
-/F2 8 Tf
-(Confidential Document - The Developers Energy Limited Advisory Desk - Accra, Ghana) Tj
-ET
-endstream
-endobj
-xref
-0 6
-0000000000 65535 f 
-0000000009 00000 n 
-0000000058 00000 n 
-0000000125 00000 n 
-0000000223 00000 n 
-0000000350 00000 n 
-trailer
-<< /Size 6 /Root 1 0 R >>
-startxref
-1000
-%%EOF`;
-
-    const blob = new Blob([pdfString], { type: 'application/pdf' });
-    return URL.createObjectURL(blob);
-  };
-
-  const handlePdfUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files && e.target.files[0]) {
-      const file = e.target.files[0];
-      if (file.type !== 'application/pdf' && !file.name.endsWith('.pdf')) {
-        alert('Please select a valid PDF file.');
-        return;
-      }
-      const url = URL.createObjectURL(file);
-      setUploadedPdfUrl(url);
-      setUploadedPdfName(file.name);
-      setUploadedPdfSize((file.size / (1024 * 1024)).toFixed(2) + ' MB');
-    }
-  };
-
-  const handleDownloadPdf = () => {
-    if (uploadedPdfUrl && uploadedPdfName) {
-      const link = document.createElement('a');
-      link.href = uploadedPdfUrl;
-      link.download = uploadedPdfName;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else if (activeArticle) {
-      const pdfUrl = generatePdfBlobForArticle(activeArticle);
-      const link = document.createElement('a');
-      link.href = pdfUrl;
-      link.download = `The_Developers_Energy_${activeArticle.id}.pdf`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    }
-    setDownloadSuccess(true);
-    setTimeout(() => setDownloadSuccess(false), 3000);
-  };
 
   const handleSubscribe = (e: React.FormEvent) => {
     e.preventDefault();
@@ -205,244 +32,73 @@ startxref
     }
   };
 
-  // --------------------------------------------------------------------------
-  // SINGLE PAGE ARTICLE READER VIEW
-  // --------------------------------------------------------------------------
-  if (activeArticle) {
-    const currentPdfDisplayUrl = uploadedPdfUrl || generatePdfBlobForArticle(activeArticle);
+  const upcomingReports = [
+    {
+      title: 'West African Petroleum Supply & Demand Outlook (2026–2027)',
+      category: 'Market Outlook',
+      icon: TrendingUp,
+      desc: 'In-depth analysis of regional refinery off-taking, Low-Sulfur Gasoil 10ppm import allocations, and Gulf of Guinea marine corridors.'
+    },
+    {
+      title: 'Ex-Refinery Parity Benchmark Pricing & Platts Valuation Formula',
+      category: 'Pricing Analytics',
+      icon: Scale,
+      desc: 'Detailed modeling of FOB Mediterranean & ARA benchmarks vs. NPA ex-refinery pricing formulas across Tema and Takoradi depots.'
+    },
+    {
+      title: 'Bulk Depot Storage Offtake & Terminal Logistics Economics',
+      category: 'Infrastructure',
+      icon: Building2,
+      desc: 'Commercial assessment of tank farm capacities, zero-loss pipeline custody transfers, and vessel laycan scheduling optimization.'
+    },
+    {
+      title: 'Downstream Regulatory Compliance & NPA Policy Briefings',
+      category: 'Policy & Governance',
+      icon: Compass,
+      desc: 'Comprehensive review of trade financing, BDC statutory guidelines, and marine STS lightering safety protocols.'
+    }
+  ];
 
-    return (
-      <div className="space-y-12 pb-20 bg-white dark:bg-[#0d0d0f] text-neutral-900 dark:text-white min-h-screen transition-colors duration-200">
-        {/* Top Header & Breadcrumb Toolbar */}
-        <section className="bg-neutral-950 dark:bg-black text-white py-12 border-b border-neutral-800 reveal">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">
-            <button
-              onClick={handleBackToList}
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-neutral-900 hover:bg-white hover:text-neutral-950 text-xs font-semibold transition-all text-neutral-200 border border-neutral-800 shadow-sm min-h-[44px]"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              <span>Back to All Reports & Insights</span>
-            </button>
-
-            <div className="space-y-3">
-              <div className="flex flex-wrap items-center gap-3">
-                <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-white text-neutral-950 uppercase tracking-wider">
-                  {activeArticle.category}
-                </span>
-                <span className="text-xs text-neutral-400 font-mono flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5 text-neutral-400" />
-                  {activeArticle.date}
-                </span>
-                <span className="text-xs text-neutral-400 font-mono flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5 text-neutral-400" />
-                  {activeArticle.readTime}
-                </span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight font-heading">
-                {activeArticle.title}
-              </h1>
-
-              <div className="flex items-center gap-2 text-xs text-neutral-400 pt-1">
-                <User className="w-4 h-4 text-neutral-400" />
-                <span>Issued by {activeArticle.author} &bull; Advisory Desk</span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          {/* Executive Summary Callout */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-neutral-50/80 dark:bg-neutral-900/60 border-l-4 border-neutral-950 dark:border-white text-sm sm:text-base text-neutral-900 dark:text-neutral-200 leading-relaxed font-medium shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] space-y-2 reveal">
-            <span className="text-xs font-bold uppercase tracking-wider text-neutral-500 dark:text-neutral-400 block">
-              Executive Summary & Brief
-            </span>
-            <p>&ldquo;{activeArticle.excerpt}&rdquo;</p>
-          </div>
-
-          {/* PDF HUB SECTION: UPLOAD, DISPLAY & DOWNLOAD */}
-          <section className="bg-neutral-50/80 dark:bg-neutral-900/60 border border-neutral-200/80 dark:border-neutral-800 rounded-3xl p-6 sm:p-8 space-y-6 shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] reveal">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-neutral-200/80 dark:border-neutral-800 pb-5">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-[10px] font-bold uppercase tracking-wider mb-2">
-                  <FileText className="w-3.5 h-3.5" />
-                  <span>PDF Document Viewer & File Hub</span>
-                </div>
-                <h3 className="text-xl sm:text-2xl font-extrabold text-neutral-900 dark:text-white font-heading">
-                  {uploadedPdfName ? uploadedPdfName : `${activeArticle.title} (PDF Version)`}
-                </h3>
-                <p className="text-xs text-neutral-600 dark:text-neutral-400 mt-0.5">
-                  {uploadedPdfName
-                    ? `Uploaded Custom Document (${uploadedPdfSize})`
-                    : 'Official Report Document available for inline viewing and download.'}
-                </p>
-              </div>
-
-              {/* Action buttons: Upload & Download */}
-              <div className="flex flex-wrap items-center gap-3">
-                <label className="cursor-pointer px-4 py-2.5 rounded-full text-xs font-bold bg-white dark:bg-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-700 text-neutral-900 dark:text-white border border-neutral-300 dark:border-neutral-700 transition-all flex items-center gap-2 shadow-sm min-h-[44px]">
-                  <Upload className="w-4 h-4 text-neutral-900 dark:text-white" />
-                  <span>Upload PDF File</span>
-                  <input
-                    type="file"
-                    accept="application/pdf,.pdf"
-                    onChange={handlePdfUpload}
-                    className="hidden"
-                  />
-                </label>
-
-                <button
-                  onClick={handleDownloadPdf}
-                  className="px-5 py-2.5 rounded-full text-xs font-extrabold text-white bg-neutral-950 dark:bg-white dark:text-neutral-950 hover:bg-neutral-800 dark:hover:bg-neutral-100 transition-all flex items-center gap-2 shadow-md min-h-[44px]"
-                >
-                  {downloadSuccess ? (
-                    <>
-                      <Check className="w-4 h-4 text-emerald-400" />
-                      <span>Downloaded PDF!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Download className="w-4 h-4 text-white dark:text-neutral-950" />
-                      <span>Download PDF</span>
-                    </>
-                  )}
-                </button>
-              </div>
-            </div>
-
-            {/* Embedded Live PDF Display Viewer */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between text-xs font-mono font-semibold text-neutral-600 dark:text-neutral-400 bg-neutral-100 dark:bg-neutral-800 px-4 py-2 rounded-t-2xl border border-neutral-200 dark:border-neutral-700 border-b-0">
-                <span className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-neutral-900 dark:bg-white inline-block animate-pulse" />
-                  <span>Document Stream Active</span>
-                </span>
-                <span>Format: PDF / 600DPI Print Specification</span>
-              </div>
-
-              <div className="w-full h-[600px] sm:h-[700px] rounded-b-2xl border border-neutral-200 dark:border-neutral-700 bg-neutral-950 overflow-hidden shadow-inner">
-                <iframe
-                  src={currentPdfDisplayUrl}
-                  title="Report PDF Viewer"
-                  className="w-full h-full border-none"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Key Executive Takeaways */}
-          <section className="bg-white dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 rounded-3xl p-6 sm:p-8 space-y-4 shadow-sm reveal">
-            <h3 className="text-lg font-extrabold text-neutral-900 dark:text-white uppercase tracking-wide flex items-center gap-2 font-heading">
-              <CheckCircle2 className="w-5 h-5 text-neutral-900 dark:text-white" />
-              <span>Key Executive Takeaways</span>
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
-              {activeArticle.keyTakeaways.map((takeaway, idx) => (
-                <div key={idx} className="bg-neutral-50 dark:bg-neutral-800/60 border border-neutral-200/70 dark:border-neutral-700/60 rounded-2xl p-4 flex items-start gap-3">
-                  <span className="w-6 h-6 rounded-full bg-neutral-950 dark:bg-white text-white dark:text-neutral-950 text-xs font-bold flex items-center justify-center shrink-0">
-                    {idx + 1}
-                  </span>
-                  <p className="text-xs text-neutral-800 dark:text-neutral-200 leading-relaxed font-medium">{takeaway}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-
-          {/* Full Content Paragraphs */}
-          <section className="space-y-6 text-neutral-800 dark:text-neutral-200 text-base leading-relaxed max-w-4xl reveal">
-            <h3 className="text-xl font-extrabold text-neutral-900 dark:text-white border-b border-neutral-200/80 dark:border-neutral-800 pb-3 font-heading">
-              Detailed Market Intelligence Analysis
-            </h3>
-
-            {activeArticle.content.map((paragraph, idx) => (
-              <p key={idx} className="text-neutral-700 dark:text-neutral-300 text-sm sm:text-base leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
-          </section>
-
-          {/* Visual Chart Data if available */}
-          {activeArticle.chartData && (
-            <section className="bg-neutral-50/80 dark:bg-neutral-900/60 p-6 sm:p-8 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 space-y-4 reveal">
-              <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-600 dark:text-neutral-400">
-                Benchmark Price Trajectory (USD/bbl)
-              </h4>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-                {activeArticle.chartData.map((d, i) => (
-                  <div key={i} className="bg-white dark:bg-neutral-800 p-4 rounded-2xl border border-neutral-200/80 dark:border-neutral-700 text-center shadow-sm">
-                    <span className="text-[10px] text-neutral-500 dark:text-neutral-400 font-bold uppercase block">{d.label}</span>
-                    <span className="text-xl font-extrabold text-neutral-900 dark:text-white font-mono mt-1 block">${d.value}</span>
-                  </div>
-                ))}
-              </div>
-            </section>
-          )}
-
-          {/* Return & Advisory Bar */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-neutral-950 text-white flex flex-col sm:flex-row items-center justify-between gap-4 shadow-xl border border-neutral-800 reveal">
-            <div>
-              <h4 className="text-lg font-extrabold text-white font-heading">Need Customized Advisory or Market Allocation?</h4>
-              <p className="text-xs text-neutral-400 mt-1">
-                Consult with The Developers Energy trade desk regarding bespoke hedging or bulk allocations.
-              </p>
-            </div>
-
-            <button
-              onClick={handleBackToList}
-              className="px-6 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider text-neutral-950 bg-white hover:bg-neutral-100 transition-all shrink-0 min-h-[44px]"
-            >
-              Back to Reports List
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  // --------------------------------------------------------------------------
-  // CATALOG & GRID VIEW OF ALL REPORTS
-  // --------------------------------------------------------------------------
   return (
-    <div className="space-y-20 sm:space-y-24 pb-20 bg-white dark:bg-[#0d0d0f] transition-colors duration-200">
+    <div className="space-y-16 sm:space-y-20 pb-20 bg-white transition-colors duration-200">
       {/* PAGE HEADER */}
-      <section className="bg-white dark:bg-[#0d0d0f] py-14 border-b border-neutral-200/80 dark:border-neutral-800/80 reveal">
+      <section className="bg-white py-14 border-b border-neutral-200/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
-          <span className="text-xs font-semibold uppercase tracking-wider text-amber-700 dark:text-amber-300 bg-amber-50 dark:bg-amber-950/50 border border-amber-200 dark:border-amber-800 px-3.5 py-1.5 rounded-full inline-block shadow-sm">
+          <span className="text-xs font-semibold uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-full inline-block shadow-sm">
             Market Intelligence
           </span>
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-neutral-900 dark:text-white tracking-tight font-heading">
+          <h1 className="text-4xl sm:text-5xl font-extrabold text-neutral-900 tracking-tight font-heading">
             Insights & Reports
           </h1>
-          <p className="text-neutral-600 dark:text-neutral-300 text-base sm:text-lg max-w-3xl leading-relaxed">
+          <p className="text-neutral-600 text-base sm:text-lg max-w-3xl leading-relaxed">
             Petroleum market analysis, price trend monitoring, regulatory shifts, and supply chain briefs from The Developers Energy advisory desk.
           </p>
         </div>
       </section>
 
       {/* INTELLIGENCE METRICS BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20 reveal">
-        <div className="bg-white dark:bg-neutral-900 rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 dark:border-neutral-800 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          <div className="space-y-1 border-r border-neutral-100 dark:border-neutral-800 last:border-none">
-            <span className="block text-2xl sm:text-4xl font-black text-neutral-900 dark:text-white tracking-tight">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          <div className="space-y-1 border-r border-neutral-100 last:border-none">
+            <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               <AnimatedCounter value={100} suffix="%" duration={1.5} />
             </span>
             <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Independent Analysis</span>
           </div>
-          <div className="space-y-1 border-r border-neutral-100 dark:border-neutral-800 last:border-none">
-            <span className="block text-2xl sm:text-4xl font-black text-neutral-900 dark:text-white tracking-tight">
+          <div className="space-y-1 border-r border-neutral-100 last:border-none">
+            <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               <AnimatedCounter value={5} suffix=" Core" duration={1.8} />
             </span>
             <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Key Benchmarks Tracked</span>
           </div>
-          <div className="space-y-1 border-r border-neutral-100 dark:border-neutral-800 last:border-none">
+          <div className="space-y-1 border-r border-neutral-100 last:border-none">
             <span className="block text-2xl sm:text-4xl font-black text-amber-500 tracking-tight">
               <AnimatedCounter value={3} duration={1.5} />
             </span>
             <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Regional Trade Corridors</span>
           </div>
           <div className="space-y-1">
-            <span className="block text-2xl sm:text-4xl font-black text-neutral-900 dark:text-white tracking-tight">
+            <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               24/7
             </span>
             <span className="text-xs font-semibold text-neutral-500 uppercase tracking-wider">Pricing Window Analytics</span>
@@ -450,131 +106,84 @@ startxref
         </div>
       </section>
 
-      {/* FILTER & SEARCH BENTO BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 reveal">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 bg-neutral-50/80 dark:bg-neutral-900/60 p-4 sm:p-5 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 shadow-sm">
-          {/* Categories Pill Buttons */}
-          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-full text-xs font-semibold transition-all uppercase tracking-wider min-h-[44px] ${
-                  selectedCategory === cat
-                    ? 'bg-amber-500 text-white shadow-sm'
-                    : 'bg-white dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-700 border border-neutral-300 dark:border-neutral-700'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Search Box */}
-          <div className="relative w-full md:w-80">
-            <Search className="w-4 h-4 text-neutral-400 absolute left-4 top-1/2 -translate-y-1/2" />
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search reports or topics..."
-              className="w-full bg-white dark:bg-neutral-800 border border-neutral-300 dark:border-neutral-700 text-neutral-900 dark:text-white text-xs rounded-full pl-10 pr-4 py-2.5 focus:outline-none focus:border-neutral-500 min-h-[44px]"
-            />
-          </div>
-        </div>
-
-        {/* ARTICLES BENTO GRID */}
-        {filteredArticles.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredArticles.map((article) => (
-              <div
-                key={article.id}
-                onClick={() => handleOpenArticle(article)}
-                className="bg-white dark:bg-neutral-900/90 border border-neutral-200/80 dark:border-neutral-800 rounded-3xl p-7 hover:border-neutral-400 dark:hover:border-neutral-600 transition-all cursor-pointer group flex flex-col justify-between shadow-[0_1px_2px_rgba(0,0,0,0.04),0_8px_24px_rgba(0,0,0,0.04)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.4)] hover:shadow-lg"
-              >
-                <div>
-                  <div className="flex items-center justify-between text-xs text-neutral-500 dark:text-neutral-400 mb-4">
-                    <span className="px-3 py-1 rounded-full text-[10px] font-semibold bg-neutral-950 text-white dark:bg-white dark:text-neutral-950 uppercase tracking-wider">
-                      {article.category}
-                    </span>
-                    <span className="flex items-center gap-1 font-mono text-[11px] text-neutral-500 dark:text-neutral-400">
-                      <Clock className="w-3.5 h-3.5" />
-                      {article.readTime}
-                    </span>
-                  </div>
-
-                  <h3 className="text-xl font-bold text-neutral-900 dark:text-white group-hover:text-neutral-600 dark:group-hover:text-neutral-300 transition-colors mb-3 leading-snug font-heading">
-                    {article.title}
-                  </h3>
-
-                  <p className="text-xs sm:text-sm text-neutral-600 dark:text-neutral-400 leading-relaxed mb-5 line-clamp-3">
-                    {article.excerpt}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-neutral-200/80 dark:border-neutral-800 flex items-center justify-between gap-2 text-xs text-neutral-500 dark:text-neutral-400">
-                  <span className="flex items-center gap-1.5 text-[11px] font-mono text-neutral-600 dark:text-neutral-400">
-                    <Calendar className="w-3.5 h-3.5 text-neutral-900 dark:text-white" />
-                    {article.date}
-                  </span>
-
-                  <div className="flex items-center gap-2">
-                    <span className="text-neutral-900 dark:text-white font-bold flex items-center gap-1 uppercase tracking-wider group-hover:translate-x-0.5 transition-transform text-xs">
-                      <span>Full Read & PDF</span>
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16 bg-neutral-50 dark:bg-neutral-900/60 rounded-3xl border border-neutral-200/80 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400">
-            <FileText className="w-10 h-10 text-neutral-400 mx-auto mb-2" />
-            <p className="text-sm">No articles match your search criteria.</p>
-          </div>
-        )}
-      </section>
-
-      {/* NEWSLETTER SUBSCRIPTION BENTO BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 reveal">
-        <div className="bg-neutral-950 dark:bg-neutral-900 text-white border border-neutral-800 rounded-3xl p-8 lg:p-10 text-center space-y-6 max-w-3xl mx-auto shadow-2xl">
-          <div className="w-12 h-12 rounded-2xl bg-white text-neutral-950 flex items-center justify-center mx-auto">
-            <Mail className="w-6 h-6" />
-          </div>
-          <div>
-            <h3 className="text-2xl font-extrabold text-white font-heading">Receive Bi-Weekly Petroleum Reports</h3>
-            <p className="text-neutral-300 text-xs sm:text-sm mt-1">
-              Direct market intelligence, price window trends, and NPA regulatory briefings delivered straight to your inbox.
+      {/* COMING SOON HERO BANNER */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-neutral-950 text-white rounded-3xl p-8 sm:p-12 lg:p-16 border border-neutral-800 shadow-2xl relative overflow-hidden text-center space-y-8">
+          <div className="max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+              <Clock className="w-4 h-4 text-amber-400" />
+              <span>Research Publications • Coming Soon</span>
+            </div>
+            
+            <h2 className="text-3xl sm:text-5xl font-black text-white tracking-tight leading-tight font-heading">
+              Market Intelligence & Petroleum Reports Coming Soon
+            </h2>
+            
+            <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
+              Our market intelligence and energy research desk is currently compiling institutional research publications, ex-refinery parity price indices, and West African hydrocarbon market dossiers. Full downloadable reports will be available here soon.
             </p>
           </div>
 
-          {subscribed ? (
-            <div className="p-4 rounded-2xl bg-neutral-900 border border-neutral-700 text-neutral-200 text-xs font-semibold flex items-center justify-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-white" />
-              <span>Subscribed successfully! You will receive our next market bulletin.</span>
-            </div>
-          ) : (
-            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-              <input
-                type="email"
-                required
-                value={subEmail}
-                onChange={(e) => setSubEmail(e.target.value)}
-                placeholder="Enter corporate email..."
-                className="flex-1 bg-neutral-900 border border-neutral-700 text-white text-xs rounded-full px-5 py-3 focus:outline-none focus:border-white min-h-[44px]"
-              />
-              <button
-                type="submit"
-                className="px-7 py-3 rounded-full text-xs font-extrabold uppercase tracking-wider text-neutral-950 bg-white hover:bg-neutral-100 transition-all shrink-0 min-h-[44px]"
-              >
-                Subscribe
-              </button>
-            </form>
-          )}
+          {/* UPCOMING TOPICS PREVIEW GRID */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-4xl mx-auto text-left pt-4">
+            {upcomingReports.map((report, idx) => {
+              const IconComponent = report.icon;
+              return (
+                <div
+                  key={idx}
+                  className="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-amber-500/50 transition-colors"
+                >
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
+                      {report.category}
+                    </span>
+                    <div className="w-8 h-8 rounded-lg bg-neutral-800 flex items-center justify-center text-neutral-300">
+                      <IconComponent className="w-4 h-4 text-amber-400" />
+                    </div>
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-white leading-snug">
+                    {report.title}
+                  </h3>
+                  <p className="text-xs text-neutral-400 leading-relaxed">
+                    {report.desc}
+                  </p>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* NOTIFICATION SUBSCRIPTION */}
+          <div className="pt-6 border-t border-neutral-800 max-w-md mx-auto space-y-3">
+            <h4 className="text-xs font-bold uppercase tracking-wider text-neutral-400">
+              Get Notified When First Report Is Released
+            </h4>
+            
+            {subscribed ? (
+              <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center justify-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-amber-400" />
+                <span>Subscribed! You will be the first to receive our inaugural release.</span>
+              </div>
+            ) : (
+              <form onSubmit={handleSubscribe} className="flex gap-2">
+                <input
+                  type="email"
+                  required
+                  value={subEmail}
+                  onChange={(e) => setSubEmail(e.target.value)}
+                  placeholder="Enter corporate email..."
+                  className="flex-1 bg-neutral-900 border border-neutral-700 text-white text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500"
+                />
+                <button
+                  type="submit"
+                  className="px-6 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider text-neutral-950 bg-amber-500 hover:bg-amber-400 transition-all shrink-0 cursor-pointer"
+                >
+                  Notify Me
+                </button>
+              </form>
+            )}
+          </div>
         </div>
       </section>
     </div>
   );
 };
-

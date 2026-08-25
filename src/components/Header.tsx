@@ -63,12 +63,12 @@ export const Header: React.FC<HeaderProps> = ({
                 className="flex items-center gap-3 group focus:outline-none transition-transform active:scale-95"
                 aria-label="The Developers Energy Home"
               >
-                <div className="h-12 sm:h-14 px-2 py-1 rounded-xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center overflow-hidden group-hover:border-amber-500 transition-all">
+                <div className="h-14 sm:h-16 px-2.5 py-1 rounded-xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center overflow-hidden group-hover:border-amber-500 transition-all">
                   <img
                     src={SITE_IMAGES.logo}
                     alt="The Developers Energy Logo"
                     referrerPolicy="no-referrer"
-                    className="h-full w-auto max-h-10 sm:max-h-12 object-contain rounded"
+                    className="h-full w-auto max-h-12 sm:max-h-14 object-contain rounded"
                   />
                 </div>
               </button>
