@@ -12,8 +12,7 @@ import {
   Briefcase,
   User,
   ArrowRight,
-  ShieldCheck,
-  CheckCircle2
+  ShieldCheck
 } from 'lucide-react';
 
 interface LeaderboardModalProps {
@@ -145,22 +144,6 @@ export const LeaderboardModal: React.FC<LeaderboardModalProps> = ({
             </div>
           </div>
 
-          {/* Key Strategic Focus Areas */}
-          {executive.keyProjects && executive.keyProjects.length > 0 && (
-            <div className="space-y-2">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500">
-                Key Strategic Focus & Projects
-              </h3>
-              <ul className="space-y-2">
-                {executive.keyProjects.map((proj, i) => (
-                  <li key={i} className="flex items-start gap-2 text-xs text-neutral-700">
-                    <CheckCircle2 className="w-4 h-4 text-amber-600 shrink-0 mt-0.5" />
-                    <span>{proj}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
 
           {/* Connect / Actions */}
           <div className="pt-4 border-t border-neutral-100 flex flex-col sm:flex-row items-center justify-between gap-4">

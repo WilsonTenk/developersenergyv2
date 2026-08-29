@@ -92,7 +92,9 @@ export default function App() {
             )}
 
             {activeTab === 'training' && (
-              <TrainingTab
+              <ComingSoonTab
+                pageType="training"
+                setActiveTab={setActiveTab}
                 onOpenQuoteModal={handleOpenQuoteModal}
               />
             )}

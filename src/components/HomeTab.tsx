@@ -11,8 +11,6 @@ import {
   Check,
   Target,
   Lightbulb,
-  Star,
-  Quote,
   Sun,
   Fuel,
   Building2,
@@ -123,65 +121,6 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       }, 4000);
     }
   };
-
-  // Testimonials state (strictly exactly 2 visible at a time with smooth animation)
-  const [testimonialIndex, setTestimonialIndex] = useState(0);
-  const allTestimonials = [
-    {
-      id: 'test-1',
-      name: 'Kwame Asante',
-      role: 'Managing Director, Horizon Energy BDC',
-      quote: 'The Developers Energy delivered outstanding execution for our physical petroleum allocations. Their market insights, transaction discipline, and counterparty vetting make them an exceptional partner in West African trade.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop',
-    },
-    {
-      id: 'test-2',
-      name: 'Sarah Mensah',
-      role: 'Head of Supply & Trading, Volta Energy Desk',
-      quote: 'Dependable, bankable, and prompt in facilitating bulk cargo allocations and depot offtake. Their understanding of ex-refinery pricing parity and downstream logistics is second to none.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=200&auto=format&fit=crop',
-    },
-    {
-      id: 'test-3',
-      name: 'David Osei-Bonsu',
-      role: 'Chief Commercial Officer, West Coast Terminal Group',
-      quote: 'Exceptional trade structuring and regulatory clearance support. The Developers Energy has streamlined our supply corridor across West Africa with spotless commercial reliability.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=200&auto=format&fit=crop',
-    },
-    {
-      id: 'test-4',
-      name: 'Elena Vance-Morgan',
-      role: 'Director of African Trading, Atlantic Bunkering Ltd',
-      quote: 'Their deepwater STS lightering coordination and zero-demurrage precision saved our bunkering fleet critical laycan hours in the Gulf of Guinea. Highly recommended for offshore execution.',
-      rating: 5,
-      avatar: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=200&auto=format&fit=crop',
-    },
-  ];
-
-  // Auto-advance client testimonials
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setTestimonialIndex((prev) => (prev + 2) % allTestimonials.length);
-    }, 7000);
-    return () => clearInterval(interval);
-  }, [allTestimonials.length]);
-
-  const nextTestimonials = () => {
-    setTestimonialIndex((prev) => (prev + 2) % allTestimonials.length);
-  };
-
-  const prevTestimonials = () => {
-    setTestimonialIndex((prev) => (prev - 2 + allTestimonials.length) % allTestimonials.length);
-  };
-
-  // Get exactly 2 active testimonials
-  const visibleTestimonials = [
-    allTestimonials[testimonialIndex % allTestimonials.length],
-    allTestimonials[(testimonialIndex + 1) % allTestimonials.length],
-  ];
 
   // CTA Newsletter state
   const [ctaEmail, setCtaEmail] = useState('');
@@ -739,80 +678,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
         </div>
       </section>
 
-      {/* 8. CLIENT FEEDBACK (EXACTLY 2 VISIBLE AT A TIME WITH ANIMATION) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
-        <div className="flex items-end justify-between">
-          <div className="space-y-1">
-            <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-neutral-900">
-              Our Clients Trust Us To Deliver Exceptional Results
-            </h2>
-            <p className="text-xs sm:text-sm text-neutral-600">
-              Institutional feedback from regional trading desks, BDCs, and terminal operators.
-            </p>
-          </div>
 
-          <div className="flex items-center gap-2">
-            <button
-              onClick={prevTestimonials}
-              aria-label="Previous testimonials"
-              className="w-10 h-10 rounded-full border border-neutral-300 bg-white hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all flex items-center justify-center shadow-sm cursor-pointer"
-            >
-              <ChevronLeft className="w-5 h-5 text-neutral-700 hover:text-white" />
-            </button>
-            <button
-              onClick={nextTestimonials}
-              aria-label="Next testimonials"
-              className="w-10 h-10 rounded-full border border-neutral-300 bg-white hover:bg-amber-500 hover:text-white hover:border-amber-500 transition-all flex items-center justify-center shadow-sm cursor-pointer"
-            >
-              <ChevronRight className="w-5 h-5 text-neutral-700 hover:text-white" />
-            </button>
-          </div>
-        </div>
-
-        {/* 2 Visible Testimonials Grid with Motion Animation */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 overflow-hidden">
-          <AnimatePresence mode="wait">
-            {visibleTestimonials.map((t, idx) => (
-              <motion.div
-                key={`${t.id}-${testimonialIndex}-${idx}`}
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -20 }}
-                transition={{ duration: 0.45, delay: idx * 0.1 }}
-                className="bg-white p-7 rounded-3xl border border-neutral-200 shadow-md space-y-4 flex flex-col justify-between relative hover:shadow-lg transition-all"
-              >
-                <div className="space-y-3">
-                  {/* 5 Stars */}
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400 text-amber-400" />
-                    ))}
-                  </div>
-
-                  <p className="text-xs sm:text-sm text-neutral-700 italic leading-relaxed">
-                    "{t.quote}"
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-neutral-100 flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={t.avatar}
-                      alt={t.name}
-                      className="w-10 h-10 rounded-full object-cover border border-neutral-200"
-                    />
-                    <div>
-                      <span className="block font-bold text-xs text-neutral-900">{t.name}</span>
-                      <span className="block text-[11px] text-neutral-500">{t.role}</span>
-                    </div>
-                  </div>
-                  <Quote className="w-7 h-7 text-amber-200" />
-                </div>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
-      </section>
 
       {/* 9. MARKET INTELLIGENCE & ADVISORY FOCUS (INSTITUTIONAL OVERVIEW) */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

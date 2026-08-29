@@ -4,7 +4,7 @@ import { Compass, Sparkles, ArrowRight, ShieldCheck, Mail, Calendar, Layers } fr
 import { SITE_IMAGES } from '../data/imageData';
 
 interface ComingSoonTabProps {
-  pageType: 'insights' | 'blog';
+  pageType: 'insights' | 'blog' | 'training';
   setActiveTab: (tab: PageTab) => void;
   onOpenQuoteModal: (service?: string) => void;
 }
@@ -15,9 +15,16 @@ export const ComingSoonTab: React.FC<ComingSoonTabProps> = ({
   onOpenQuoteModal,
 }) => {
   const isInsights = pageType === 'insights';
-  const title = isInsights ? 'Energy Market Intelligence & Pricing Desk' : 'African Energy & Petroleum Editorial Desk';
+  const isTraining = pageType === 'training';
+  const title = isInsights
+    ? 'Energy Market Intelligence & Pricing Desk'
+    : isTraining
+    ? 'Executive Training & Masterclasses'
+    : 'African Energy & Petroleum Editorial Desk';
   const subtitle = isInsights
     ? 'Our market intelligence desk is currently calibrating real-time pricing feeds, ex-refinery parity benchmarks (Platts & Argus windows), and regional supply/demand analytics.'
+    : isTraining
+    ? 'Our executive training institute is finalizing a suite of specialized masterclasses in petroleum trading, depot HSSE compliance, Incoterms 2020, and energy price risk derivatives. Enrolment opens soon.'
     : 'Our editorial board is preparing deep-dive research pieces, trade policy analyses, and executive interviews covering the West African energy transition and downstream trade.';
 
   return (
@@ -31,7 +38,7 @@ export const ComingSoonTab: React.FC<ComingSoonTabProps> = ({
 
           {/* Icon Header */}
           <div className="w-16 h-16 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-amber-600 flex items-center justify-center mx-auto shadow-sm">
-            {isInsights ? <Compass className="w-8 h-8" /> : <Layers className="w-8 h-8" />}
+            {isInsights ? <Compass className="w-8 h-8" /> : isTraining ? <Layers className="w-8 h-8" /> : <Layers className="w-8 h-8" />}
           </div>
 
           {/* Text Content */}
@@ -70,7 +77,7 @@ export const ComingSoonTab: React.FC<ComingSoonTabProps> = ({
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              onClick={() => onOpenQuoteModal(isInsights ? 'Market Intelligence & Advisory' : 'General Trade Inquiries')}
+              onClick={() => onOpenQuoteModal(isInsights ? 'Market Intelligence & Advisory' : isTraining ? 'Executive Training Enrolment' : 'General Trade Inquiries')}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-900 bg-neutral-100 hover:bg-neutral-200 border border-neutral-200 transition-all"
             >
               <Mail className="w-4 h-4" />
