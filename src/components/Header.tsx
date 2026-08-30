@@ -54,9 +54,9 @@ export const Header: React.FC<HeaderProps> = ({
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-18 sm:h-20">
+          <div className="flex items-center justify-between min-h-[76px] sm:min-h-[84px] py-2">
             
-            {/* Logo — sits directly on header background, no box */}
+            {/* Logo — sits directly on header background, prominently sized */}
             <div className="flex items-center">
               <button
                 onClick={() => handleNavClick('home')}
@@ -67,7 +67,7 @@ export const Header: React.FC<HeaderProps> = ({
                   src={SITE_IMAGES.logo}
                   alt="The Developers Energy Logo"
                   referrerPolicy="no-referrer"
-                  className="h-10 sm:h-12 lg:h-14 w-auto max-w-[160px] sm:max-w-[220px] lg:max-w-[260px] object-contain transition-opacity group-hover:opacity-80"
+                  className="h-11 sm:h-12 lg:h-[52px] w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[250px] object-contain transition-opacity group-hover:opacity-85"
                 />
               </button>
             </div>
