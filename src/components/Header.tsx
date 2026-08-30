@@ -56,21 +56,19 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-18 sm:h-20">
             
-            {/* Logo */}
-            <div className="flex items-center gap-3">
+            {/* Logo — sits directly on header background, no box */}
+            <div className="flex items-center">
               <button
                 onClick={() => handleNavClick('home')}
-                className="flex items-center gap-3 group focus:outline-none transition-transform active:scale-95"
+                className="flex items-center group focus:outline-none transition-transform active:scale-95"
                 aria-label="The Developers Energy Home"
               >
-                <div className="h-[60px] sm:h-[74px] px-2.5 py-1.5 rounded-xl bg-white border border-neutral-200 shadow-sm flex items-center justify-center overflow-hidden group-hover:border-amber-500 transition-all">
-                  <img
-                    src={SITE_IMAGES.logo}
-                    alt="The Developers Energy Logo"
-                    referrerPolicy="no-referrer"
-                    className="h-full w-auto max-w-[148px] sm:max-w-[210px] lg:max-w-[240px] object-contain"
-                  />
-                </div>
+                <img
+                  src={SITE_IMAGES.logo}
+                  alt="The Developers Energy Logo"
+                  referrerPolicy="no-referrer"
+                  className="h-10 sm:h-12 lg:h-14 w-auto max-w-[160px] sm:max-w-[220px] lg:max-w-[260px] object-contain transition-opacity group-hover:opacity-80"
+                />
               </button>
             </div>
 
