@@ -2,7 +2,7 @@
 const BASE = import.meta.env.BASE_URL || '/';
 
 // Logo
-const logoImg = `${BASE}images/tde/tde-logo-new.png`;
+const logoImg = `${BASE}images/tde/newwwLogo.png`;
 
 // Hero slideshow images (4 dedicated hero images)
 const heroImg1 = `${BASE}images/tde/hero-bg-1.jpg`;
