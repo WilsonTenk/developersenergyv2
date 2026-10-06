@@ -4,7 +4,7 @@ export interface BlogPost {
   id: string;
   title: string;
   subtitle?: string;
-  category: 'Energy Transition' | 'Commodities & Trade' | 'Downstream Logistics' | 'Tech & Innovation' | 'Policy & Geopolitics';
+  category: 'Energy Transition' | 'Commodities & Trade' | 'Downstream Logistics' | 'Tech & Innovation' | 'Policy & Geopolitics' | 'Market Intelligence';
   author: {
     name: string;
     role: string;
