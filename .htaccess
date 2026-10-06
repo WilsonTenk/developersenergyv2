@@ -1,0 +1,30 @@
+# ----------------------------------------------------------------------
+# Root Apache / cPanel configuration for The Developers Energy
+# ----------------------------------------------------------------------
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # If dist directory exists and request is not already in dist
+  RewriteCond %{DOCUMENT_ROOT}/dist -d [OR]
+  RewriteCond %{REQUEST_URI} ^/
+  RewriteCond %{REQUEST_URI} !^/dist/
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ dist/$1 [L]
+
+  # Fallback to dist/index.html for SPA routing
+  RewriteCond %{DOCUMENT_ROOT}/dist/index.html -f
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^ dist/index.html [L]
+</IfModule>
+
+# Ensure proper MIME types for modern JS modules and assets
+<IfModule mod_mime.c>
+  AddType application/javascript .js .mjs
+  AddType text/css .css
+  AddType image/svg+xml .svg
+  AddType image/webp .webp
+  AddType font/woff2 .woff2
+</IfModule>
