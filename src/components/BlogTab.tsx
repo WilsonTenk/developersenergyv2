@@ -16,11 +16,24 @@ import {
   Printer,
   ArrowLeft,
   Flame,
+  Share2,
+  Linkedin,
+  Twitter,
+  Facebook,
+  Link2,
 } from 'lucide-react';
 
 interface BlogTabProps {
   onOpenQuoteModal: (service?: string) => void;
+  initialArticleSlug?: string;
+  onSelectArticleSlug?: (slug: string | null) => void;
 }
+
+const WhatsAppIcon: React.FC<{ className?: string }> = ({ className = 'w-4 h-4' }) => (
+  <svg className={className} viewBox="0 0 24 24" fill="currentColor">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+  </svg>
+);
 
 // ─── CATEGORY BADGE COLOURS ───────────────────────────────────────────────────
 const categoryColors: Record<string, string> = {
@@ -41,20 +54,58 @@ interface ArticlePageProps {
 
 const ArticlePage: React.FC<ArticlePageProps> = ({ post, onBack, onOpenQuoteModal }) => {
   const [downloaded, setDownloaded] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   // Scroll to top when article opens
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, []);
 
+  const getShareUrl = () => {
+    if (typeof window !== 'undefined') {
+      return window.location.href;
+    }
+    return 'https://thedevelopersenergy.com/blog/crude-oil-volatility';
+  };
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(getShareUrl());
+      setCopied(true);
+      setTimeout(() => setCopied(false), 3000);
+    } catch (err) {
+      console.error('Failed to copy', err);
+    }
+  };
+
+  const handleNativeShare = async () => {
+    if (typeof navigator !== 'undefined' && navigator.share) {
+      try {
+        await navigator.share({
+          title: post.title,
+          text: post.subtitle || post.excerpt,
+          url: getShareUrl(),
+        });
+      } catch {
+        // User cancelled share
+      }
+    } else {
+      handleCopyLink();
+    }
+  };
+
+  const openShareWindow = (url: string) => {
+    window.open(url, '_blank', 'noopener,noreferrer,width=600,height=500');
+  };
+
   const handleDownload = () => {
     const text = `================================================================================
-THE DEVELOPERS ENERGY LIMITED — EXECUTIVE BLOG ARTICLE
+THE DEVELOPERS ENERGY LIMITED | EXECUTIVE BLOG ARTICLE
 ================================================================================
 TITLE    : ${post.title}
 CATEGORY : ${post.category}
 DATE     : ${post.date} | ${post.readTime}
-AUTHOR   : ${post.author.name} — ${post.author.role}
+AUTHOR   : ${post.author.name} | ${post.author.role}
 
 SUBTITLE : ${post.subtitle ?? ''}
 
@@ -118,11 +169,30 @@ ${post.content.join('\n\n')}
             Back to Blog
           </button>
 
-          {/* Export actions */}
+          {/* Social share & Export actions */}
           <div className="flex items-center gap-2">
             <button
+              onClick={handleNativeShare}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-neutral-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 transition-colors shadow-sm cursor-pointer"
+              title="Share article with others"
+            >
+              <Share2 className="w-3.5 h-3.5 text-amber-600" />
+              <span>Share</span>
+            </button>
+            <button
+              onClick={handleCopyLink}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors cursor-pointer"
+              title="Copy article link"
+            >
+              {copied ? (
+                <><Check className="w-3.5 h-3.5 text-emerald-600" /> <span className="text-emerald-700">Copied!</span></>
+              ) : (
+                <><Link2 className="w-3.5 h-3.5" /> <span>Copy Link</span></>
+              )}
+            </button>
+            <button
               onClick={handleDownload}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-700 transition-colors shadow-sm"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-700 transition-colors shadow-sm cursor-pointer"
             >
               {downloaded ? (
                 <><Check className="w-3.5 h-3.5 text-emerald-400" /> Downloaded!</>
@@ -132,7 +202,7 @@ ${post.content.join('\n\n')}
             </button>
             <button
               onClick={() => window.print()}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors"
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" /> Print
             </button>
@@ -235,13 +305,85 @@ ${post.content.join('\n\n')}
           </div>
         </div>
 
+        {/* ── SHARE THIS ARTICLE ── */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 shadow-sm space-y-4">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <h3 className="text-base font-extrabold text-neutral-900 flex items-center gap-2">
+                <Share2 className="w-4 h-4 text-amber-500" />
+                Share This Article
+              </h3>
+              <p className="text-xs text-neutral-500">
+                Distribute this petroleum market perspective with your network, team, or trade partners.
+              </p>
+            </div>
+            {copied && (
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold animate-in fade-in">
+                <Check className="w-3.5 h-3.5 text-emerald-600" /> Link copied!
+              </span>
+            )}
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5 pt-2">
+            {/* LinkedIn */}
+            <button
+              onClick={() => openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getShareUrl())}`)}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              title="Share on LinkedIn"
+            >
+              <Linkedin className="w-4 h-4" />
+              <span>LinkedIn</span>
+            </button>
+
+            {/* X / Twitter */}
+            <button
+              onClick={() => openShareWindow(`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(getShareUrl())}`)}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              title="Share on X"
+            >
+              <Twitter className="w-4 h-4" />
+              <span>X (Twitter)</span>
+            </button>
+
+            {/* WhatsApp */}
+            <button
+              onClick={() => openShareWindow(`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' ' + getShareUrl())}`)}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              title="Share on WhatsApp"
+            >
+              <WhatsAppIcon className="w-4 h-4" />
+              <span>WhatsApp</span>
+            </button>
+
+            {/* Facebook */}
+            <button
+              onClick={() => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`)}
+              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#0d65d9] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              title="Share on Facebook"
+            >
+              <Facebook className="w-4 h-4" />
+              <span>Facebook</span>
+            </button>
+
+            {/* Copy Link */}
+            <button
+              onClick={handleCopyLink}
+              className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 text-xs font-bold transition-all cursor-pointer"
+              title="Copy link to clipboard"
+            >
+              {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Link2 className="w-4 h-4" />}
+              <span>{copied ? 'Copied!' : 'Copy Link'}</span>
+            </button>
+          </div>
+        </div>
+
         {/* About TDE */}
         <div className="bg-neutral-950 text-white rounded-3xl p-8 sm:p-10 space-y-4 mt-4">
           <p className="text-xs font-bold uppercase tracking-wider text-amber-400">
             About The Developers Energy Limited
           </p>
           <p className="text-neutral-300 text-sm sm:text-base leading-relaxed">
-            At <span className="font-bold text-white">The Developers Energy Limited</span>, we bridge the gap between global energy markets and African opportunity — providing market intelligence, commercial analysis, project and transaction support, and strategic insight across Ghana and the wider African energy market.
+            At <span className="font-bold text-white">The Developers Energy Limited</span>, we bridge the gap between global energy markets and African opportunity, providing market intelligence, commercial analysis, project and transaction support, and strategic insight across Ghana and the wider African energy market.
           </p>
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
             <button
@@ -266,15 +408,41 @@ ${post.content.join('\n\n')}
 };
 
 // ─── BLOG LISTING PAGE ────────────────────────────────────────────────────────
-export const BlogTab: React.FC<BlogTabProps> = ({ onOpenQuoteModal }) => {
+export const BlogTab: React.FC<BlogTabProps> = ({
+  onOpenQuoteModal,
+  initialArticleSlug,
+  onSelectArticleSlug,
+}) => {
   const [readingPost, setReadingPost] = useState<BlogPost | null>(null);
   const [subscribed, setSubscribed] = useState(false);
   const [emailInput, setEmailInput] = useState('');
 
+  // Handle direct navigation via URL slug (e.g. /blog/crude-oil-volatility)
+  useEffect(() => {
+    if (initialArticleSlug) {
+      const match = BLOG_POSTS.find(
+        (p) =>
+          p.id === initialArticleSlug ||
+          initialArticleSlug.toLowerCase().includes('crude-oil')
+      );
+      if (match) {
+        setReadingPost(match);
+      }
+    } else {
+      setReadingPost(null);
+    }
+  }, [initialArticleSlug]);
+
   // When user navigates away from article, scroll back to top of listing
   const handleBack = () => {
     setReadingPost(null);
+    onSelectArticleSlug?.(null);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSelectPost = (post: BlogPost) => {
+    setReadingPost(post);
+    onSelectArticleSlug?.('crude-oil-volatility');
   };
 
   // Show full-page article reader instead of the listing
@@ -332,7 +500,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({ onOpenQuoteModal }) => {
         {/* Featured article — large hero card */}
         {featuredPost && (
           <button
-            onClick={() => setReadingPost(featuredPost)}
+            onClick={() => handleSelectPost(featuredPost)}
             className="group w-full text-left bg-white rounded-3xl border border-neutral-200 hover:border-amber-400 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2">

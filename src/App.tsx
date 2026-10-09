@@ -16,19 +16,40 @@ import { TradeCalculatorModal } from './components/TradeCalculatorModal';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { updatePageSeo } from './utils/seo';
 import { ThemeProvider } from './context/ThemeContext';
+import { parseRoute, pushRoute } from './utils/router';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<PageTab>('home');
+  const initialRoute = parseRoute();
+  const [activeTab, setActiveTab] = useState<PageTab>(initialRoute.tab);
+  const [articleSlug, setArticleSlug] = useState<string | undefined>(initialRoute.articleSlug);
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [quotePrefilledService, setQuotePrefilledService] = useState<string | undefined>(undefined);
   const [calculatorModalOpen, setCalculatorModalOpen] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState<InsightArticle | null>(null);
 
-  // Automatically scroll to top of page and update SEO meta tags on tab switch
+  // Sync with browser back/forward buttons
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const handlePopState = () => {
+      const route = parseRoute();
+      setActiveTab(route.tab);
+      setArticleSlug(route.articleSlug);
+      updatePageSeo(route.tab);
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Update SEO meta tags on active tab change
+  useEffect(() => {
     updatePageSeo(activeTab);
   }, [activeTab]);
+
+  const handleTabChange = (tab: PageTab, slug?: string) => {
+    setActiveTab(tab);
+    setArticleSlug(slug);
+    pushRoute(tab, slug);
+    window.scrollTo(0, 0);
+  };
 
   const handleOpenQuoteModal = (serviceTitle?: string) => {
     setQuotePrefilledService(serviceTitle);
@@ -41,7 +62,7 @@ export default function App() {
         {/* Sticky Top Header */}
         <Header
           activeTab={activeTab}
-          setActiveTab={setActiveTab}
+          setActiveTab={(tab) => handleTabChange(tab)}
           onOpenQuoteModal={handleOpenQuoteModal}
           onOpenCalculator={() => setCalculatorModalOpen(true)}
         />
@@ -54,19 +75,19 @@ export default function App() {
           <ErrorBoundary sectionName="Page Section">
             {activeTab === 'home' && (
               <HomeTab
-                setActiveTab={setActiveTab}
+                setActiveTab={(tab) => handleTabChange(tab)}
                 onOpenQuoteModal={handleOpenQuoteModal}
                 onOpenCalculator={() => setCalculatorModalOpen(true)}
                 onSelectArticle={(article) => {
                   setSelectedArticle(article);
-                  setActiveTab('insights');
+                  handleTabChange('insights');
                 }}
               />
             )}
 
             {activeTab === 'about' && (
               <AboutTab
-                setActiveTab={setActiveTab}
+                setActiveTab={(tab) => handleTabChange(tab)}
                 onOpenQuoteModal={handleOpenQuoteModal}
               />
             )}
@@ -88,13 +109,18 @@ export default function App() {
             {activeTab === 'blog' && (
               <BlogTab
                 onOpenQuoteModal={handleOpenQuoteModal}
+                initialArticleSlug={articleSlug}
+                onSelectArticleSlug={(slug) => {
+                  setArticleSlug(slug || undefined);
+                  pushRoute('blog', slug || undefined);
+                }}
               />
             )}
 
             {activeTab === 'training' && (
               <ComingSoonTab
                 pageType="training"
-                setActiveTab={setActiveTab}
+                setActiveTab={(tab) => handleTabChange(tab)}
                 onOpenQuoteModal={handleOpenQuoteModal}
               />
             )}
@@ -107,7 +133,7 @@ export default function App() {
 
         {/* Site Footer */}
         <Footer
-          setActiveTab={setActiveTab}
+          setActiveTab={(tab) => handleTabChange(tab)}
           onOpenQuoteModal={handleOpenQuoteModal}
         />
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { PageTab } from '../types';
 import { SITE_IMAGES } from '../data/imageData';
 import { Menu, X, ArrowUpRight, Calculator } from 'lucide-react';
+import { getRouteUrl, getTabRoute } from '../utils/router';
 
 interface HeaderProps {
   activeTab: PageTab;
@@ -58,8 +59,12 @@ export const Header: React.FC<HeaderProps> = ({
             
             {/* Logo — sits directly on header background, prominently sized */}
             <div className="flex items-center">
-              <button
-                onClick={() => handleNavClick('home')}
+              <a
+                href={getRouteUrl('/')}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleNavClick('home');
+                }}
                 className="flex items-center group focus:outline-none transition-transform active:scale-95"
                 aria-label="The Developers Energy Home"
               >
@@ -69,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({
                   referrerPolicy="no-referrer"
                   className="h-11 sm:h-12 lg:h-[52px] w-auto max-w-[170px] sm:max-w-[210px] lg:max-w-[250px] object-contain transition-opacity group-hover:opacity-85"
                 />
-              </button>
+              </a>
             </div>
 
             {/* Desktop Navigation Links */}
@@ -77,9 +82,13 @@ export const Header: React.FC<HeaderProps> = ({
               {navItems.map((item) => {
                 const isActive = activeTab === item.id;
                 return (
-                  <button
+                  <a
                     key={item.id}
-                    onClick={() => handleNavClick(item.id)}
+                    href={getRouteUrl(getTabRoute(item.id))}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      handleNavClick(item.id);
+                    }}
                     className={`px-3.5 py-2 rounded-lg text-sm font-semibold transition-all duration-150 ${
                       isActive
                         ? 'text-amber-600 bg-amber-50 font-bold'
@@ -87,7 +96,7 @@ export const Header: React.FC<HeaderProps> = ({
                     }`}
                   >
                     {item.label}
-                  </button>
+                  </a>
                 );
               })}
             </nav>
@@ -139,9 +148,13 @@ export const Header: React.FC<HeaderProps> = ({
             {navItems.map((item) => {
               const isActive = activeTab === item.id;
               return (
-                <button
+                <a
                   key={item.id}
-                  onClick={() => handleNavClick(item.id)}
+                  href={getRouteUrl(getTabRoute(item.id))}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(item.id);
+                  }}
                   className={`w-full text-left px-4 py-3 rounded-lg text-base font-semibold transition-colors min-h-[44px] flex items-center ${
                     isActive
                       ? 'text-amber-600 bg-amber-50 font-bold'
@@ -149,7 +162,7 @@ export const Header: React.FC<HeaderProps> = ({
                   }`}
                 >
                   {item.label}
-                </button>
+                </a>
               );
             })}
             <div className="pt-4 border-t border-neutral-200 flex flex-col gap-2.5">
