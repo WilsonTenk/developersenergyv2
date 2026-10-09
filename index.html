@@ -199,15 +199,27 @@
       ]
     }
     </script>
-    <script type="module" crossorigin src="./assets/index-DZhi5Sfi.js"></script>
-    <link rel="modulepreload" crossorigin href="./assets/vendor-misc-Vu9cKtJQ.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-react-Cy0wUanD.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-icons-xRa4XQ9-.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-radix-ChTRmehI.js">
-    <link rel="modulepreload" crossorigin href="./assets/vendor-motion-BdTvMRYF.js">
-    <link rel="stylesheet" crossorigin href="./assets/index-CbqHTt_l.css">
-  </head>
+  <script type="module" crossorigin src="./assets/index-BfFAYVJh.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/vendor-misc-Vu9cKtJQ.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-react-Cy0wUanD.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-icons-CaCzDxsA.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-radix-ChTRmehI.js">
+  <link rel="modulepreload" crossorigin href="./assets/vendor-motion-BdTvMRYF.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-BVi8sKY1.css">
+
   <body class="bg-white dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100 font-sans antialiased transition-colors duration-200">
+    <script>
+      (function(l) {
+        if (l.search[1] === '/') {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&');
+          }).join('?');
+          window.history.replaceState(null, null,
+            l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
     <div id="root"></div>
   </body>
 </html>
