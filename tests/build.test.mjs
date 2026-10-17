@@ -37,4 +37,6 @@ test('production protections and route mappings are emitted', () => {
   assert.match(policy, /Options -Indexes/);
   assert.match(policy, /blog\/crude-oil-volatility/);
   assert.match(policy, /Require all denied/);
+  assert.match(policy, /connect-src 'self' https:\/\/api\.web3forms\.com/);
+  assert.match(policy, /frame-src https:\/\/hcaptcha\.com https:\/\/\*\.hcaptcha\.com/);
 });

@@ -15,7 +15,7 @@ Options -Indexes
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
   Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
   Header always set Strict-Transport-Security "max-age=86400" env=HTTPS
-  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Xcl4Df0OmUQFS675x13IKoSFEdq6CyXxARlXANBsR5U=' 'sha256-jS9ZlAyiGjixNoNhZYZ+BVKUR6XMoihIuMLDOkumY2Y=' 'sha256-9H2PrOOsoO83j+B0+WyBtdZvggyAhI/S58G9vWvZoak='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'sha256-Xcl4Df0OmUQFS675x13IKoSFEdq6CyXxARlXANBsR5U=' 'sha256-jS9ZlAyiGjixNoNhZYZ+BVKUR6XMoihIuMLDOkumY2Y=' 'sha256-9H2PrOOsoO83j+B0+WyBtdZvggyAhI/S58G9vWvZoak=' https://hcaptcha.com https://*.hcaptcha.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://hcaptcha.com https://*.hcaptcha.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' https: data: blob:; connect-src 'self' https://api.web3forms.com https://hcaptcha.com https://*.hcaptcha.com; frame-src https://hcaptcha.com https://*.hcaptcha.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'"
 </IfModule>
 
 <IfModule mod_rewrite.c>

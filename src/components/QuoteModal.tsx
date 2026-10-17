@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState } from 'react';
 import { X, Send, CheckCircle2, Calculator, AlertCircle } from 'lucide-react';
 import { TradeQuoteData } from '../types';
@@ -32,7 +33,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const inquiry = useInquiryForm('Detailed quote request');
+  const loading = inquiry.pending;
 
   // ESC key listener
   React.useEffect(() => {
@@ -47,7 +49,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
 
   if (!isOpen) return null;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
 
@@ -75,11 +77,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
       return;
     }
 
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSubmitted(true);
-    }, 600);
+    if (await inquiry.send({ ...cleaned, name: cleaned.fullName, deal_type: formData.dealType, timeframe: formData.timeframe })) setSubmitted(true);
   };
 
   const resetAndClose = () => {
@@ -120,9 +118,9 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
         {submitted ? (
           <div className="py-8 text-center space-y-4">
             <CheckCircle2 className="w-14 h-14 text-emerald-600 mx-auto animate-bounce" />
-            <h3 className="text-xl font-bold text-black font-heading">Consultation Request Received</h3>
+            <h3 className="text-xl font-bold text-black font-heading">Consultation Request Submitted</h3>
             <p className="text-xs text-neutral-600 max-w-md mx-auto leading-relaxed">
-              Your inquiry has been routed to our Senior Trade Facilitator at The Developers Energy Limited in Accra. We will contact you within 2 hours.
+              Your inquiry has been accepted for delivery to our trade desk. Thank you for contacting The Developers Energy Limited.
             </p>
             <div className="pt-4">
               <button
@@ -300,7 +298,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <span>{loading ? 'Submitting Request...' : 'Transmit Quote Request'}</span>
               </button>
             </div>
-          </form>
+          <InquiryFormStatus form={inquiry} />
+</form>
         )}
       </div>
     </div>

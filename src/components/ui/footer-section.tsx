@@ -1,5 +1,6 @@
 "use client"
 
+import { useInquiryForm, InquiryFormStatus } from '../common/InquiryForm';
 import * as React from "react"
 import { Button } from "./button"
 import { Input } from "./input"
@@ -27,8 +28,11 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
   const [newsletterError, setNewsletterError] = React.useState("")
   const [quickMsg, setQuickMsg] = React.useState("")
   const [quickMsgSent, setQuickMsgSent] = React.useState(false)
+  const [quickEmail, setQuickEmail] = React.useState('')
+  const newsletterInquiry = useInquiryForm('Footer newsletter signup')
+  const messageInquiry = useInquiryForm('Footer quick message')
 
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
+  const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setNewsletterError("")
     const clean = sanitizeEmail(newsletterEmail)
@@ -38,23 +42,14 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
       return
     }
 
-    setNewsletterSubscribed(true)
-    setTimeout(() => {
-      setNewsletterSubscribed(false)
-      setNewsletterEmail("")
-    }, 4000)
+    if (await newsletterInquiry.send({ email: clean, message: 'Please add me to the market briefing mailing list.' })) setNewsletterSubscribed(true)
   }
 
-  const handleQuickMsgSubmit = (e: React.FormEvent) => {
+  const handleQuickMsgSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     const cleanMsg = sanitizeTextarea(quickMsg)
-    if (cleanMsg.trim().length >= 3) {
-      setQuickMsgSent(true)
-      setTimeout(() => {
-        setQuickMsgSent(false)
-        setQuickMsg("")
-      }, 4000)
-    }
+    if (cleanMsg.length < 3) { messageInquiry.setError('Please enter a message of at least 3 characters.'); return; }
+    if (await messageInquiry.send({ email: sanitizeEmail(quickEmail), message: cleanMsg })) setQuickMsgSent(true)
   }
 
   return (
@@ -206,7 +201,7 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
             {newsletterSubscribed ? (
               <div className="p-3 rounded-lg bg-emerald-50 border border-emerald-300 text-emerald-700 text-xs font-medium flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 shrink-0" />
-                <span>Subscribed! Market reports will arrive in your inbox.</span>
+                <span>Sign-up request submitted to our team.</span>
               </div>
             ) : (
               <form onSubmit={handleNewsletterSubmit} className="space-y-2">
@@ -223,7 +218,7 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
                     className={`pr-10 text-xs bg-neutral-50 ${newsletterError ? 'border-red-400' : 'border-neutral-200'}`}
                   />
                   <Button
-                    type="submit"
+                    type="submit" disabled={newsletterInquiry.pending}
                     size="icon"
                     className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7 rounded-sm bg-neutral-950 hover:bg-neutral-800 text-white"
                   >
@@ -234,7 +229,8 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
                 {newsletterError && (
                   <p className="text-[11px] text-red-600 font-medium">{newsletterError}</p>
                 )}
-              </form>
+              <InquiryFormStatus form={newsletterInquiry} />
+</form>
             )}
 
             <div className="pt-2 border-t border-neutral-200 space-y-3">
@@ -255,10 +251,11 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
                   {quickMsgSent ? (
                     <div className="p-2.5 rounded-md bg-emerald-50 text-emerald-700 text-xs flex items-center gap-1.5 border border-emerald-200">
                       <CheckCircle2 className="w-3.5 h-3.5" />
-                      <span>Message received. Our trade desk will respond.</span>
+                      <span>Message submitted to our trade desk.</span>
                     </div>
                   ) : (
                     <form onSubmit={handleQuickMsgSubmit} className="space-y-2">
+                      <Input type="email" required maxLength={254} aria-label="Your email for a reply" placeholder="Your email for a reply" value={quickEmail} onChange={e => setQuickEmail(e.target.value)} />
                       <Textarea
                         rows={2}
                         value={quickMsg}
@@ -266,10 +263,11 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
                         placeholder="Brief inquiry / volume required..."
                         className="text-xs bg-neutral-50 border-neutral-200"
                       />
-                      <Button type="submit" size="sm" className="w-full text-xs h-8 bg-neutral-950 text-white hover:bg-neutral-800">
+                      <Button type="submit" disabled={messageInquiry.pending} size="sm" className="w-full text-xs h-8 bg-neutral-950 text-white hover:bg-neutral-800">
                         Send to Trade Desk
                       </Button>
-                    </form>
+                    <InquiryFormStatus form={messageInquiry} />
+</form>
                   )}
                 </div>
               )}

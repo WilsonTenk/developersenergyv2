@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState } from 'react';
 import { InsightArticle } from '../types';
 import { AnimatedCounter } from './common/AnimatedCounter';
@@ -21,17 +22,13 @@ interface InsightsTabProps {
 
 export const InsightsTab: React.FC<InsightsTabProps> = () => {
   const [subscribed, setSubscribed] = useState(false);
+  const newsletterInquiry = useInquiryForm('Insights newsletter signup');
   const [subEmail, setSubEmail] = useState('');
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (subEmail) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 4000);
-      setSubEmail('');
-    }
+    if (await newsletterInquiry.send({ email: subEmail.trim(), message: 'Please add me to the market briefing mailing list.' })) setSubscribed(true);
   };
-
   const upcomingReports = [
     {
       title: 'West African Petroleum Supply & Demand Outlook (2026–2027)',
@@ -161,10 +158,10 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
             {subscribed ? (
               <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center justify-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-amber-400" />
-                <span>Subscribed! You will be the first to receive our inaugural release.</span>
+                <span>Sign-up request submitted to our team.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-wrap gap-2">
                 <input
                   type="email"
                   required
@@ -174,12 +171,13 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
                   className="flex-1 bg-neutral-900 border border-neutral-700 text-white text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500"
                 />
                 <button
-                  type="submit"
+                  type="submit" disabled={newsletterInquiry.pending}
                   className="px-6 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider text-neutral-950 bg-amber-500 hover:bg-amber-400 transition-all shrink-0 cursor-pointer"
                 >
                   Notify Me
                 </button>
-              </form>
+              <InquiryFormStatus form={newsletterInquiry} />
+</form>
             )}
           </div>
         </div>

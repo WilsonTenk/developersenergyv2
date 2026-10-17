@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Navigation, AlertCircle } from 'lucide-react';
 import { contactFormSchema } from '../lib/validation';
@@ -16,9 +17,10 @@ export const ContactTab: React.FC = () => {
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const inquiry = useInquiryForm('Contact desk');
+  const isSubmitting = inquiry.pending;
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrors({});
 
@@ -43,19 +45,11 @@ export const ContactTab: React.FC = () => {
       return;
     }
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
+    const accepted = await inquiry.send({ ...validation.data, inquiry_subject: cleaned.subject, company: sanitizeString(formData.company), phone: sanitizePhone(formData.phone) });
+    if (accepted) {
       setSubmitted(true);
-      setFormData({
-        name: '',
-        email: '',
-        company: '',
-        phone: '',
-        subject: 'Energy Trade Facilitation',
-        message: '',
-      });
-    }, 600);
+      setFormData({ name: '', email: '', company: '', phone: '', subject: 'Energy Trade Facilitation', message: '' });
+    }
   };
 
   return (
@@ -119,7 +113,7 @@ export const ContactTab: React.FC = () => {
                 <div className="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center mx-auto shadow-md">
                   <CheckCircle2 className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-lg font-bold text-neutral-900">Message Delivered</h3>
+                <h3 className="text-lg font-bold text-neutral-900">Message Submitted</h3>
                 <p className="text-xs sm:text-sm text-neutral-600 max-w-md mx-auto leading-relaxed">
                   Thank you for reaching out to The Developers Energy Limited. An officer from our Accra desk will contact you via email/phone shortly.
                 </p>
@@ -235,7 +229,8 @@ export const ContactTab: React.FC = () => {
                   <Send className="w-4 h-4 text-white" />
                   <span>{isSubmitting ? 'Transmitting Message...' : 'Submit Inquiry'}</span>
                 </button>
-              </form>
+              <InquiryFormStatus form={inquiry} />
+</form>
             )}
           </div>
 

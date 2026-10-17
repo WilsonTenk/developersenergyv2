@@ -40,11 +40,27 @@ assets load, and response headers contain CSP, nosniff and frame protection.
 The Vite preview server does not execute `.htaccess` and is not a production server.
 Restore the previous backed-up `dist/` to roll back.
 
+## Receiving form submissions
+
+The eight active contact, quote, newsletter and footer-message forms send to
+Web3Forms using the owner's public access key in `src/lib/web3forms.ts`.
+This identifier is designed for browser use; never substitute an inbox password.
+The destination inbox is managed in Web3Forms, not in the site's code.
+
+Before deployment, enable **hCaptcha** under **Block Spam** in the Web3Forms form
+dashboard. The site uses Web3Forms' free shared hCaptcha site key. Browser checks
+alone cannot enforce CAPTCHA against direct API calls; dashboard enforcement is
+required. CSP allows only the Web3Forms API and hCaptcha hosts needed by the forms.
+
+After deployment, manually submit one clearly labelled test enquiry, solve the
+CAPTCHA and verify receipt in the intended inbox (including spam). Automated tests
+mock the API; they do not prove actual email delivery. Monitor the free plan's
+250 monthly submissions. Quota/network/provider errors preserve entered values
+and offer a direct email link. Newsletter submissions are requests for the team
+to process, not automatic enrolment in an email campaign service.
+
 ## Remaining functional and hosting work
 
-- Inquiry, newsletter and chat-style forms currently simulate success locally;
-  they do not send or store messages. Connect an approved service with server-side
-  validation, rate limiting and spam protection before claiming delivery.
 - The unused training payment component simulates payment and generates a receipt.
   Training currently displays a coming-soon page. Do not enable that component
   until payment amounts and provider webhooks are verified by a real backend.

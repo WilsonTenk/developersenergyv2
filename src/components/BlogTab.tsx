@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState, useEffect } from 'react';
 import { BlogPost } from '../types';
 import { BLOG_POSTS } from '../data/blogData';
@@ -415,6 +416,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
 }) => {
   const [readingPost, setReadingPost] = useState<BlogPost | null>(null);
   const [subscribed, setSubscribed] = useState(false);
+  const newsletterInquiry = useInquiryForm('Blog newsletter signup');
   const [emailInput, setEmailInput] = useState('');
 
   // Handle direct navigation via URL slug (e.g. /blog/crude-oil-volatility)
@@ -454,15 +456,10 @@ export const BlogTab: React.FC<BlogTabProps> = ({
     );
   }
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (emailInput.trim()) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 5000);
-      setEmailInput('');
-    }
+    if (await newsletterInquiry.send({ email: emailInput.trim(), message: 'Please add me to the market briefing mailing list.' })) setSubscribed(true);
   };
-
   const featuredPost = BLOG_POSTS.find((p) => p.featured) ?? BLOG_POSTS[0];
 
   return (
@@ -629,10 +626,10 @@ export const BlogTab: React.FC<BlogTabProps> = ({
             {subscribed ? (
               <div className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
                 <CheckCircle2 className="w-4 h-4" />
-                Subscribed! You&apos;ll receive our next article release.
+                Sign-up request submitted to our team.
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-wrap gap-2">
                 <input
                   type="email"
                   required
@@ -642,13 +639,14 @@ export const BlogTab: React.FC<BlogTabProps> = ({
                   className="flex-1 px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-500 transition-colors"
                 />
                 <button
-                  type="submit"
+                  type="submit" disabled={newsletterInquiry.pending}
                   className="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-md"
                 >
                   <span>Subscribe</span>
                   <Send className="w-3.5 h-3.5" />
                 </button>
-              </form>
+              <InquiryFormStatus form={newsletterInquiry} />
+</form>
             )}
           </div>
 

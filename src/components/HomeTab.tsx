@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState, useEffect } from 'react';
 import { PageTab } from '../types';
 import { SITE_IMAGES } from '../data/imageData';
@@ -109,32 +110,21 @@ export const HomeTab: React.FC<HomeTabProps> = ({
   const [quickPhone, setQuickPhone] = useState('');
   const [quickService, setQuickService] = useState('Commodity Brokerage & Trade');
   const [quickSubmitted, setQuickSubmitted] = useState(false);
+  const quickInquiry = useInquiryForm('Homepage quick quote');
+  const newsletterInquiry = useInquiryForm('Homepage newsletter signup');
 
-  const handleQuickQuoteSubmit = (e: React.FormEvent) => {
+  const handleQuickQuoteSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (quickName.trim()) {
-      setQuickSubmitted(true);
-      setTimeout(() => {
-        setQuickSubmitted(false);
-        setQuickName('');
-        setQuickPhone('');
-      }, 4000);
-    }
+    if (quickName.trim() && quickPhone.trim() && await quickInquiry.send({ name: quickName.trim(), phone: quickPhone.trim(), service: quickService })) setQuickSubmitted(true);
   };
 
   // CTA Newsletter state
   const [ctaEmail, setCtaEmail] = useState('');
   const [ctaSubscribed, setCtaSubscribed] = useState(false);
 
-  const handleCtaSubscribe = (e: React.FormEvent) => {
+  const handleCtaSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (ctaEmail.includes('@')) {
-      setCtaSubscribed(true);
-      setTimeout(() => {
-        setCtaSubscribed(false);
-        setCtaEmail('');
-      }, 4000);
-    }
+    if (await newsletterInquiry.send({ email: ctaEmail.trim(), message: 'Please add me to the market briefing mailing list.' })) setCtaSubscribed(true);
   };
 
   return (
@@ -632,8 +622,8 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             <div className="bg-neutral-950 text-white p-5 rounded-2xl flex items-center gap-3">
               <CheckCircle2 className="w-6 h-6 text-amber-400 shrink-0" />
               <div>
-                <span className="block font-bold text-sm">Inquiry Received Successfully</span>
-                <span className="text-xs text-neutral-300">An energy trade lead has been notified and will contact you directly.</span>
+                <span className="block font-bold text-sm">Inquiry Submitted Successfully</span>
+                <span className="text-xs text-neutral-300">Your request has been accepted for delivery to our trade desk.</span>
               </div>
             </div>
           ) : (
@@ -667,13 +657,14 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                   <option value="Energy Advisory & Consulting">Energy Advisory & Consulting</option>
                 </select>
                 <button
-                  type="submit"
+                  type="submit" disabled={quickInquiry.pending}
                   className="px-5 py-3 rounded-xl bg-neutral-950 hover:bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-95 cursor-pointer"
                 >
                   Get Your Free Quote
                 </button>
               </div>
-            </form>
+            <InquiryFormStatus form={quickInquiry} />
+</form>
           )}
         </div>
       </section>
@@ -776,10 +767,10 @@ export const HomeTab: React.FC<HomeTabProps> = ({
               {ctaSubscribed ? (
                 <div className="p-3 rounded-xl bg-neutral-950 text-white text-xs font-bold flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-amber-400" />
-                  <span>Subscribed! Market reports will arrive in your inbox.</span>
+                  <span>Sign-up request submitted to our team.</span>
                 </div>
               ) : (
-                <form onSubmit={handleCtaSubscribe} className="flex gap-2">
+                <form onSubmit={handleCtaSubscribe} className="flex flex-wrap gap-2">
                   <input
                     type="email"
                     required
@@ -789,13 +780,14 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                     className="flex-1 px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
                   />
                   <button
-                    type="submit"
+                    type="submit" disabled={newsletterInquiry.pending}
                     className="px-5 py-3 rounded-xl bg-neutral-950 hover:bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
                   >
                     <span>Send</span>
                     <Send className="w-3.5 h-3.5 text-white" />
                   </button>
-                </form>
+                <InquiryFormStatus form={newsletterInquiry} />
+</form>
               )}
             </div>
           </div>
