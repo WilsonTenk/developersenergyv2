@@ -423,11 +423,9 @@ export const BlogTab: React.FC<BlogTabProps> = ({
       const match = BLOG_POSTS.find(
         (p) =>
           p.id === initialArticleSlug ||
-          initialArticleSlug.toLowerCase().includes('crude-oil')
+          (p.id === 'blog-6' && initialArticleSlug === 'crude-oil-volatility')
       );
-      if (match) {
-        setReadingPost(match);
-      }
+      setReadingPost(match || null);
     } else {
       setReadingPost(null);
     }
@@ -442,7 +440,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
 
   const handleSelectPost = (post: BlogPost) => {
     setReadingPost(post);
-    onSelectArticleSlug?.('crude-oil-volatility');
+    onSelectArticleSlug?.(post.id === 'blog-6' ? 'crude-oil-volatility' : post.id);
   };
 
   // Show full-page article reader instead of the listing
