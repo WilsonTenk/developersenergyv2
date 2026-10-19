@@ -53,10 +53,10 @@ export const ContactTab: React.FC = () => {
   };
 
   return (
-    <div className="space-y-20 sm:space-y-24 pb-20 bg-white">
+    <div className="tde-page space-y-20 sm:space-y-24 pb-20 bg-white">
       {/* PAGE HEADER */}
-      <section className="bg-white py-14 border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <section className="tde-page-intro bg-white py-14 border-b border-neutral-200">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <h1 className="text-4xl sm:text-5xl font-black text-neutral-900 tracking-tight leading-tight">
             Contact Our Executive Desk
           </h1>
@@ -67,8 +67,8 @@ export const ContactTab: React.FC = () => {
       </section>
 
       {/* DESK SLA STATS BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="tde-container tde-metrics max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="tde-panel bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1 border-r border-neutral-100 last:border-none">
             <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               &lt;24h
@@ -97,10 +97,10 @@ export const ContactTab: React.FC = () => {
       </section>
 
       {/* CONTACT GRID */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
           {/* Left Form */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 border border-neutral-200 space-y-6 shadow-sm">
+          <div className="tde-panel lg:col-span-7 bg-white rounded-3xl p-6 sm:p-10 border border-neutral-200 space-y-6 shadow-sm">
             <div>
               <h2 className="text-2xl font-bold text-neutral-900">Send Us a Direct Message</h2>
               <p className="text-xs sm:text-sm text-neutral-500 mt-1">
@@ -109,7 +109,7 @@ export const ContactTab: React.FC = () => {
             </div>
 
             {submitted ? (
-              <div className="p-6 sm:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 text-center space-y-3">
+              <div className="tde-panel p-6 sm:p-8 rounded-3xl bg-neutral-50 border border-neutral-200 text-center space-y-3">
                 <div className="w-12 h-12 rounded-full bg-amber-500 text-white flex items-center justify-center mx-auto shadow-md">
                   <CheckCircle2 className="w-6 h-6 text-white" />
                 </div>
@@ -119,7 +119,7 @@ export const ContactTab: React.FC = () => {
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}
-                  className="mt-4 px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 transition-all min-h-[44px] cursor-pointer"
+                  className="tde-button mt-4 px-6 py-2.5 rounded-xl text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 transition-all min-h-[44px] cursor-pointer"
                 >
                   Send Another Inquiry
                 </button>
@@ -172,7 +172,7 @@ export const ContactTab: React.FC = () => {
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                       placeholder="e.g. Apex Energy Ghana"
-                      className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 min-h-[44px]"
+                      className="tde-field w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 min-h-[44px]"
                     />
                   </div>
 
@@ -183,7 +183,7 @@ export const ContactTab: React.FC = () => {
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: sanitizePhone(e.target.value) })}
                       placeholder="+233 24 000 0000"
-                      className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 min-h-[44px]"
+                      className="tde-field w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 min-h-[44px]"
                     />
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export const ContactTab: React.FC = () => {
                   <select
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    className="w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 min-h-[44px]"
+                    className="tde-field w-full bg-neutral-50 border border-neutral-200 text-neutral-900 text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500 min-h-[44px]"
                   >
                     <option value="Energy Trade Facilitation">Energy Trade Facilitation & Cargo</option>
                     <option value="Market Intelligence">Market Intelligence & Advisory Brief</option>
@@ -224,7 +224,7 @@ export const ContactTab: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 transition-all flex items-center justify-center gap-2 shadow-md min-h-[44px] disabled:opacity-60 cursor-pointer"
+                  className="tde-button w-full py-3.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 transition-all flex items-center justify-center gap-2 shadow-md min-h-[44px] disabled:opacity-60 cursor-pointer"
                 >
                   <Send className="w-4 h-4 text-white" />
                   <span>{isSubmitting ? 'Transmitting Message...' : 'Submit Inquiry'}</span>
@@ -236,7 +236,7 @@ export const ContactTab: React.FC = () => {
 
           {/* Right Info & Map */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 space-y-6 shadow-sm">
+            <div className="tde-panel bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 space-y-6 shadow-sm">
               <h3 className="text-lg font-bold text-neutral-900 border-b border-neutral-200 pb-3">
                 Head Office & Contact Details
               </h3>
@@ -285,7 +285,7 @@ export const ContactTab: React.FC = () => {
             </div>
 
             {/* Interactive Map Card */}
-            <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 space-y-4 shadow-sm">
+            <div className="tde-panel bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 space-y-4 shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-bold text-neutral-900 flex items-center gap-1.5">
                   <Navigation className="w-4 h-4 text-amber-500" />

@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
     "lint": "tsc --noEmit",
-    "test": "tsx --test tests/web3forms.test.ts && node --test tests/build.test.mjs"
+    "test": "tsx --test tests/web3forms.test.ts tests/marketData.test.ts && node --test tests/build.test.mjs"
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^2.2.0",

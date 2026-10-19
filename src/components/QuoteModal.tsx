@@ -92,7 +92,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white border border-neutral-300 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative animate-in zoom-in-95 duration-200 text-black shadow-2xl my-auto"
+        className="tde-panel bg-white border border-neutral-300 rounded-3xl max-w-xl w-full p-6 sm:p-8 space-y-6 max-h-[90vh] overflow-y-auto relative animate-in zoom-in-95 duration-200 text-black shadow-2xl my-auto"
       >
         {/* Header */}
         <div className="flex items-start justify-between border-b border-neutral-200 pb-4 sticky top-0 bg-white z-10 pt-1">
@@ -125,7 +125,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
             <div className="pt-4">
               <button
                 onClick={resetAndClose}
-                className="px-6 py-2.5 rounded-full text-xs font-bold text-white bg-black hover:bg-neutral-800 min-h-[44px]"
+                className="tde-button px-6 py-2.5 rounded-full text-xs font-bold text-white bg-black hover:bg-neutral-800 min-h-[44px]"
               >
                 Close Dialog
               </button>
@@ -159,7 +159,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <select
                   value={formData.dealType}
                   onChange={(e) => setFormData({ ...formData, dealType: e.target.value as any })}
-                  className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
+                  className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
                 >
                   <option value="Trade Facilitation">Physical Trade Facilitation</option>
                   <option value="Market Intelligence">Market Intelligence Brief</option>
@@ -173,7 +173,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <select
                   value={formData.commodityProduct}
                   onChange={(e) => setFormData({ ...formData, commodityProduct: e.target.value })}
-                  className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
+                  className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
                 >
                   <option value="Gasoil 10ppm (Diesel)">Gasoil 10ppm (Diesel)</option>
                   <option value="Unleaded Gasoline 95">Unleaded Gasoline 95</option>
@@ -191,7 +191,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <select
                   value={formData.estimatedVolume}
                   onChange={(e) => setFormData({ ...formData, estimatedVolume: e.target.value })}
-                  className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
+                  className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
                 >
                   <option value="Spot (1,000 - 5,000 MT)">Spot (1,000 - 5,000 MT)</option>
                   <option value="5,000 - 10,000 MT">5,000 - 10,000 MT</option>
@@ -206,7 +206,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 <select
                   value={formData.incoterm}
                   onChange={(e) => setFormData({ ...formData, incoterm: e.target.value as any })}
-                  className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
+                  className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
                 >
                   <option value="CIF">CIF (Cost, Insurance & Freight - Tema/Takoradi)</option>
                   <option value="FOB">FOB (Free on Board - Load Port)</option>
@@ -261,7 +261,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.companyName}
                   onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
                   placeholder="Company / Institution"
-                  className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
+                  className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
                 />
               </div>
 
@@ -272,7 +272,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: sanitizePhone(e.target.value) })}
                   placeholder="+233..."
-                  className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
+                  className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black min-h-[40px]"
                 />
               </div>
             </div>
@@ -284,7 +284,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
                 value={formData.notes}
                 onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
                 placeholder="Mention discharge ports, bank LC issuing details, or technical scope..."
-                className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black resize-none"
+                className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black resize-none"
               />
             </div>
 
@@ -292,7 +292,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-black hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 shadow-md min-h-[44px] disabled:opacity-60"
+                className="tde-button w-full py-3.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-black hover:bg-neutral-800 transition-all flex items-center justify-center gap-2 shadow-md min-h-[44px] disabled:opacity-60"
               >
                 <Send className="w-4 h-4" />
                 <span>{loading ? 'Submitting Request...' : 'Transmit Quote Request'}</span>

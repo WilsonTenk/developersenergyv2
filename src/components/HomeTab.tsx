@@ -128,10 +128,10 @@ export const HomeTab: React.FC<HomeTabProps> = ({
   };
 
   return (
-    <div className="space-y-16 sm:space-y-24 pb-20 bg-neutral-50 text-neutral-900 font-sans">
+    <div className="tde-page tde-home space-y-16 sm:space-y-24 pb-20 bg-neutral-50 text-neutral-900 font-sans">
       
       {/* 1. ANIMATED HERO SECTION (4-IMAGE BACKGROUND SLIDESHOW) */}
-      <section className="relative min-h-[580px] sm:min-h-[640px] lg:min-h-[720px] flex items-center overflow-hidden">
+      <section className="tde-hero relative min-h-[580px] sm:min-h-[640px] lg:min-h-[720px] flex items-center overflow-hidden">
         {/* Animated Background Image Carousel with Ken-Burns and Crossfade */}
         <div className="absolute inset-0 z-0 bg-neutral-950">
           <AnimatePresence mode="sync">
@@ -158,11 +158,11 @@ export const HomeTab: React.FC<HomeTabProps> = ({
         </div>
 
         {/* Hero Content Container */}
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 sm:py-24">
+        <div className="tde-container relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full py-16 sm:py-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end">
             
             {/* Left Hero Main Text */}
-            <div className="lg:col-span-8 space-y-6 text-white max-w-3xl">
+            <div className="tde-hero-copy lg:col-span-8 space-y-6 text-white max-w-3xl">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentHeroSlide.id}
@@ -199,14 +199,14 @@ export const HomeTab: React.FC<HomeTabProps> = ({
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <button
                   onClick={() => onOpenQuoteModal('General Trade & Infrastructure')}
-                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.02] active:scale-95"
+                  className="tde-button inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-lg shadow-amber-500/25 transition-all hover:scale-[1.02] active:scale-95"
                 >
                   <span>Get Your Free Quote</span>
                   <ArrowUpRight className="w-4 h-4 text-white" />
                 </button>
                 <button
                   onClick={() => setActiveTab('services')}
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-all"
+                  className="tde-button inline-flex items-center gap-2 px-6 py-3.5 rounded-xl text-sm font-semibold text-white bg-white/10 hover:bg-white/20 backdrop-blur-md border border-white/20 transition-all"
                 >
                   <span>Explore Services</span>
                 </button>
@@ -254,7 +254,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             </div>
 
             {/* Right Floating Card */}
-            <div className="lg:col-span-4 hidden lg:block">
+            <div className="tde-hero-aside lg:col-span-4">
               <AnimatePresence mode="wait">
                 <motion.div
                   key={currentHeroSlide.id}
@@ -262,7 +262,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4 }}
-                  className="bg-white rounded-3xl p-7 shadow-2xl border border-neutral-100 text-neutral-900 space-y-4"
+                  className="tde-panel bg-white rounded-3xl p-7 shadow-2xl border border-neutral-100 text-neutral-900 space-y-4"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-bold uppercase tracking-wider text-amber-600">
@@ -305,8 +305,8 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 2. STATS BAR - Strategic Capabilities & Footprint */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-20">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="tde-container tde-metrics max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 sm:-mt-14 relative z-20">
+        <div className="tde-panel bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1 border-r border-neutral-100 last:border-none">
             <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               <AnimatedCounter value={5} suffix=" Core" duration={1.8} />
@@ -335,7 +335,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 3. CORE VALUES / ABOUT US SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="tde-about-preview tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 sm:gap-14 items-center">
           
           {/* Left Image with Value Highlight */}
@@ -373,7 +373,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
 
             <button
               onClick={() => onOpenQuoteModal('Strategic Partnership')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-md transition-all active:scale-95"
+              className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-md transition-all active:scale-95"
             >
               <span>Get Your Free Quote</span>
               <ArrowUpRight className="w-4 h-4 text-white" />
@@ -408,7 +408,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 4. TAILORED SOLUTIONS FOR INDUSTRY GROWTH (SERVICES GRID) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         {/* Header Strip */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
@@ -422,7 +422,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
 
           <button
             onClick={() => setActiveTab('services')}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-sm transition-all shrink-0 self-start md:self-auto cursor-pointer"
+            className="tde-button inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-sm transition-all shrink-0 self-start md:self-auto cursor-pointer"
           >
             <span>View All Services</span>
             <ArrowUpRight className="w-4 h-4 text-white" />
@@ -434,7 +434,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
           {SITE_IMAGES.servicesGrid.map((srv) => (
             <div
               key={srv.id}
-              className="bg-neutral-950 text-white rounded-3xl overflow-hidden border border-neutral-800 shadow-xl flex flex-col justify-between group hover:border-amber-500 transition-all duration-300"
+              className="tde-service-card bg-neutral-950 text-white rounded-3xl overflow-hidden border border-neutral-800 shadow-xl flex flex-col justify-between group hover:border-amber-500 transition-all duration-300"
             >
               <div>
                 {/* Card Thumbnail Image */}
@@ -476,7 +476,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
               <div className="p-6 pt-0">
                 <button
                   onClick={() => onOpenQuoteModal(srv.title)}
-                  className="w-full py-2.5 rounded-xl bg-neutral-900 hover:bg-amber-500 hover:text-white text-neutral-300 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 border border-neutral-800 cursor-pointer"
+                  className="tde-button w-full py-2.5 rounded-xl bg-neutral-900 hover:bg-amber-500 hover:text-white text-neutral-300 text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-1.5 border border-neutral-800 cursor-pointer"
                 >
                   <span>Read More</span>
                   <ArrowRight className="w-3.5 h-3.5 text-neutral-300 group-hover:text-white" />
@@ -488,8 +488,8 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 5. WORK PROCESS SECTION */}
-      <section className="bg-white py-16 sm:py-20 border-y border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+      <section className="tde-process bg-white py-16 sm:py-20 border-y border-neutral-200">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           <div className="text-center max-w-2xl mx-auto space-y-2">
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-neutral-900">
@@ -502,7 +502,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Step 1 */}
-            <div className="bg-neutral-50 rounded-2xl p-7 border border-neutral-200/80 shadow-sm space-y-4 relative group hover:-translate-y-1 transition-all">
+            <div className="tde-panel bg-neutral-50 rounded-2xl p-7 border border-neutral-200/80 shadow-sm space-y-4 relative group hover:-translate-y-1 transition-all">
               <div className="text-4xl font-black text-amber-500 font-mono">01</div>
               <h3 className="text-lg font-bold text-neutral-900">Consultation & Planning</h3>
               <p className="text-xs font-semibold text-amber-700">Shaping the Foundation of Success</p>
@@ -512,7 +512,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             </div>
 
             {/* Step 2 */}
-            <div className="bg-neutral-50 rounded-2xl p-7 border border-neutral-200/80 shadow-sm space-y-4 relative group hover:-translate-y-1 transition-all">
+            <div className="tde-panel bg-neutral-50 rounded-2xl p-7 border border-neutral-200/80 shadow-sm space-y-4 relative group hover:-translate-y-1 transition-all">
               <div className="text-4xl font-black text-amber-500 font-mono">02</div>
               <h3 className="text-lg font-bold text-neutral-900">Execution & Implementation</h3>
               <p className="text-xs font-semibold text-amber-700">Transforming Plans into Tangible Results</p>
@@ -522,7 +522,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             </div>
 
             {/* Step 3 */}
-            <div className="bg-neutral-50 rounded-2xl p-7 border border-neutral-200/80 shadow-sm space-y-4 relative group hover:-translate-y-1 transition-all">
+            <div className="tde-panel bg-neutral-50 rounded-2xl p-7 border border-neutral-200/80 shadow-sm space-y-4 relative group hover:-translate-y-1 transition-all">
               <div className="text-4xl font-black text-amber-500 font-mono">03</div>
               <h3 className="text-lg font-bold text-neutral-900">Delivery & Long-Term Support</h3>
               <p className="text-xs font-semibold text-amber-700">Committed to Continuous Operational Growth</p>
@@ -536,7 +536,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 6. SHOWCASE FEATURED CARGO ALLOCATIONS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-1">
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-neutral-900">
@@ -607,8 +607,8 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 7. HORIZONTAL QUICK QUOTE STRIP */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-amber-500 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl text-neutral-950">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-consultation tde-panel bg-amber-500 rounded-3xl p-6 sm:p-8 md:p-10 shadow-xl text-neutral-950">
           <div className="mb-6 max-w-2xl">
             <h3 className="text-xl sm:text-3xl font-black tracking-tight text-neutral-950">
               Request A Commercial Consultation
@@ -635,7 +635,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                   value={quickName}
                   onChange={(e) => setQuickName(e.target.value)}
                   placeholder="Your Full Name / Entity"
-                  className="px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
+                  className="tde-field px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
                 />
                 <input
                   type="tel"
@@ -643,12 +643,12 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                   value={quickPhone}
                   onChange={(e) => setQuickPhone(e.target.value)}
                   placeholder="Corporate Phone / WhatsApp"
-                  className="px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
+                  className="tde-field px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
                 />
                 <select
                   value={quickService}
                   onChange={(e) => setQuickService(e.target.value)}
-                  className="px-4 py-3 rounded-xl bg-white text-neutral-900 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none cursor-pointer"
+                  className="tde-field px-4 py-3 rounded-xl bg-white text-neutral-900 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none cursor-pointer"
                 >
                   <option value="Commodity Brokerage & Trade">Commodity Brokerage & Trade</option>
                   <option value="Physical Oil Offtaking (Gasoil / Mogas)">Physical Oil Offtaking (Gasoil / Mogas)</option>
@@ -658,7 +658,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                 </select>
                 <button
                   type="submit" disabled={quickInquiry.pending}
-                  className="px-5 py-3 rounded-xl bg-neutral-950 hover:bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-95 cursor-pointer"
+                  className="tde-button px-5 py-3 rounded-xl bg-neutral-950 hover:bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider transition-all shadow-md active:scale-95 cursor-pointer"
                 >
                   Get Your Free Quote
                 </button>
@@ -672,8 +672,8 @@ export const HomeTab: React.FC<HomeTabProps> = ({
 
 
       {/* 9. MARKET INTELLIGENCE & ADVISORY FOCUS (INSTITUTIONAL OVERVIEW) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-neutral-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-panel bg-white rounded-3xl p-8 sm:p-12 border border-neutral-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-4">
             <h2 className="text-2xl sm:text-4xl font-black tracking-tight text-neutral-900">
               Independent Market Intelligence & Pricing Window Analytics
@@ -702,7 +702,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             <div className="pt-2 flex items-center gap-4">
               <button
                 onClick={() => onOpenQuoteModal('Market Intelligence & Pricing Desk')}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-md transition-all cursor-pointer active:scale-95"
+                className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-md transition-all cursor-pointer active:scale-95"
               >
                 <span>Request Market Briefing</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -710,7 +710,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
             </div>
           </div>
 
-          <div className="lg:col-span-5 bg-neutral-950 text-white rounded-2xl p-6 sm:p-7 border border-neutral-800 space-y-4">
+          <div className="tde-panel lg:col-span-5 bg-neutral-950 text-white rounded-2xl p-6 sm:p-7 border border-neutral-800 space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-neutral-800">
               <span className="text-xs font-mono font-bold uppercase tracking-wider text-amber-400">Trade Intelligence Desk</span>
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
@@ -739,8 +739,8 @@ export const HomeTab: React.FC<HomeTabProps> = ({
       </section>
 
       {/* 10. PRE-FOOTER CTA BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-neutral-950 text-white rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-panel bg-neutral-950 text-white rounded-3xl overflow-hidden border border-neutral-800 shadow-2xl p-8 sm:p-12 lg:p-14 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
           <div className="lg:col-span-6 space-y-4">
             <div className="h-12 w-auto inline-flex items-center px-3.5 py-1.5 rounded-xl bg-white border border-neutral-200">
@@ -756,7 +756,7 @@ export const HomeTab: React.FC<HomeTabProps> = ({
           </div>
 
           <div className="lg:col-span-6">
-            <div className="bg-amber-500 text-neutral-950 p-6 sm:p-8 rounded-2xl shadow-xl space-y-4">
+            <div className="tde-panel bg-amber-500 text-neutral-950 p-6 sm:p-8 rounded-2xl shadow-xl space-y-4">
               <h3 className="text-xl sm:text-2xl font-black tracking-tight text-neutral-950">
                 Transform Your Energy Supply With Us!
               </h3>
@@ -777,11 +777,11 @@ export const HomeTab: React.FC<HomeTabProps> = ({
                     value={ctaEmail}
                     onChange={(e) => setCtaEmail(e.target.value)}
                     placeholder="Enter your corporate email"
-                    className="flex-1 px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
+                    className="tde-field flex-1 px-4 py-3 rounded-xl bg-white text-neutral-900 placeholder:text-neutral-500 text-xs font-medium border-none shadow-sm focus:ring-2 focus:ring-neutral-950 outline-none"
                   />
                   <button
                     type="submit" disabled={newsletterInquiry.pending}
-                    className="px-5 py-3 rounded-xl bg-neutral-950 hover:bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+                    className="tde-button px-5 py-3 rounded-xl bg-neutral-950 hover:bg-neutral-900 text-white text-xs font-bold uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
                   >
                     <span>Send</span>
                     <Send className="w-3.5 h-3.5 text-white" />

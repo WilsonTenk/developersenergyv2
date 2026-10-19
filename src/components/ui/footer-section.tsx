@@ -53,7 +53,7 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
   }
 
   return (
-    <footer className="relative border-t bg-white border-neutral-200 text-neutral-900 transition-colors duration-200">
+    <footer className="tde-footer relative border-t bg-white border-neutral-200 text-neutral-900 transition-colors duration-200">
       <div className="container mx-auto px-4 py-12 md:px-6 lg:px-8">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-4">
           
@@ -182,7 +182,7 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
               <Button
                 variant="outline"
                 size="sm"
-                className="w-full text-xs font-semibold border-neutral-300 hover:bg-neutral-100 text-neutral-900"
+                className="tde-button w-full text-xs font-semibold border-neutral-300 hover:bg-neutral-100 text-neutral-900"
                 onClick={() => onOpenQuoteModal ? onOpenQuoteModal('Strategic Energy Collaboration') : onNavigateTab?.('contact')}
               >
                 <span>Request Trade Allocation Quote</span>
@@ -239,7 +239,7 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-6 px-2 text-[11px] text-neutral-800 hover:bg-neutral-100"
+                  className="tde-button h-6 px-2 text-[11px] text-neutral-800 hover:bg-neutral-100"
                   onClick={() => setIsChatOpen(!isChatOpen)}
                 >
                   {isChatOpen ? "Hide Form" : "Quick Message"}
@@ -261,9 +261,9 @@ function Footerdemo({ onNavigateTab, onOpenQuoteModal }: FooterdemoProps) {
                         value={quickMsg}
                         onChange={(e) => setQuickMsg(e.target.value)}
                         placeholder="Brief inquiry / volume required..."
-                        className="text-xs bg-neutral-50 border-neutral-200"
+                        className="tde-field text-xs bg-neutral-50 border-neutral-200"
                       />
-                      <Button type="submit" disabled={messageInquiry.pending} size="sm" className="w-full text-xs h-8 bg-neutral-950 text-white hover:bg-neutral-800">
+                      <Button type="submit" disabled={messageInquiry.pending} size="sm" className="tde-button w-full text-xs h-8 bg-neutral-950 text-white hover:bg-neutral-800">
                         Send to Trade Desk
                       </Button>
                     <InquiryFormStatus form={messageInquiry} />
