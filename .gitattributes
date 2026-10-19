@@ -1,0 +1,6 @@
+# CSP script hashes must survive Windows/Linux checkouts unchanged.
+*.html text eol=lf
+*.js text eol=lf
+*.mjs text eol=lf
+*.css text eol=lf
+.htaccess text eol=lf

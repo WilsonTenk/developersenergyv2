@@ -33,7 +33,6 @@ export default function App() {
       const route = parseRoute();
       setActiveTab(route.tab);
       setArticleSlug(route.articleSlug);
-      updatePageSeo(route.tab);
     };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
@@ -41,8 +40,8 @@ export default function App() {
 
   // Update SEO meta tags on active tab change
   useEffect(() => {
-    updatePageSeo(activeTab);
-  }, [activeTab]);
+    updatePageSeo(activeTab, articleSlug);
+  }, [activeTab, articleSlug]);
 
   const handleTabChange = (tab: PageTab, slug?: string) => {
     setActiveTab(tab);

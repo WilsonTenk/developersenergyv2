@@ -1,6 +1,6 @@
 import { BlogPost } from '../types';
 
-const BASE = import.meta.env.BASE_URL || '/';
+const BASE = import.meta.env?.BASE_URL || '/';
 
 const tdeImg1 = `${BASE}images/tde/tde-img-1.jpeg`;
 

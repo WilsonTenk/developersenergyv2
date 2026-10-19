@@ -104,10 +104,10 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
   const currentTrack = STRATEGIC_TRACKS.find((t) => t.id === selectedTrack) || STRATEGIC_TRACKS[0];
 
   return (
-    <div className="space-y-20 sm:space-y-24 pb-20 bg-white">
+    <div className="tde-page space-y-20 sm:space-y-24 pb-20 bg-white">
       {/* PAGE HEADER */}
-      <section className="bg-white py-14 border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <section className="tde-page-intro bg-white py-14 border-b border-neutral-200">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <h1 className="text-4xl sm:text-5xl font-black text-neutral-900 tracking-tight leading-tight">
             {COMPANY_PROFILE_DATA.name}
           </h1>
@@ -118,8 +118,8 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
       </section>
 
       {/* CORPORATE STATS BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="tde-container tde-metrics max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="tde-panel bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1 border-r border-neutral-100 last:border-none">
             <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               <AnimatedCounter value={5} duration={1.5} />
@@ -148,8 +148,8 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
       </section>
 
       {/* CORPORATE OVERVIEW */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-neutral-200/90 shadow-md space-y-6">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-panel bg-white rounded-3xl p-8 sm:p-12 border border-neutral-200/90 shadow-md space-y-6">
           <div className="flex items-center gap-3.5">
             <div className="w-11 h-11 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shadow-sm">
               <Building2 className="w-5 h-5 text-amber-600" />
@@ -175,10 +175,10 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
       </section>
 
       {/* VISION & MISSION CARDS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Vision Card */}
-          <div className="bg-white border border-neutral-200/90 rounded-3xl p-8 sm:p-10 relative overflow-hidden space-y-4 shadow-sm hover:shadow-md transition-all duration-300 group">
+          <div className="tde-panel bg-white border border-neutral-200/90 rounded-3xl p-8 sm:p-10 relative overflow-hidden space-y-4 shadow-sm hover:shadow-md transition-all duration-300 group">
             <div className="w-12 h-12 rounded-2xl bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 group-hover:bg-amber-500 group-hover:text-white transition-all duration-200 shadow-sm">
               <Eye className="w-6 h-6 text-neutral-900 group-hover:text-white" />
             </div>
@@ -201,7 +201,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
           </div>
 
           {/* Mission Card */}
-          <div className="bg-white border border-neutral-200/90 rounded-3xl p-8 sm:p-10 relative overflow-hidden space-y-4 shadow-sm hover:shadow-md transition-all duration-300 group">
+          <div className="tde-panel bg-white border border-neutral-200/90 rounded-3xl p-8 sm:p-10 relative overflow-hidden space-y-4 shadow-sm hover:shadow-md transition-all duration-300 group">
             <div className="w-12 h-12 rounded-2xl bg-neutral-100 border border-neutral-200 flex items-center justify-center text-neutral-900 group-hover:bg-amber-500 group-hover:text-white transition-all duration-200 shadow-sm">
               <Target className="w-6 h-6 text-neutral-900 group-hover:text-white" />
             </div>
@@ -226,7 +226,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
       </section>
 
       {/* CORE VALUES SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="text-center max-w-3xl mx-auto space-y-2">
           <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
             Our Core Values
@@ -240,7 +240,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
           {COMPANY_PROFILE_DATA.coreValues.map((val, idx) => (
             <div
               key={idx}
-              className="bg-white border border-neutral-200 rounded-3xl p-6 space-y-3 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
+              className="tde-panel bg-white border border-neutral-200 rounded-3xl p-6 space-y-3 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1"
             >
               <div className="w-9 h-9 rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 flex items-center justify-center text-xs font-bold font-mono">
                 0{idx + 1}
@@ -254,7 +254,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
 
       {/* TARGET MARKETS & COMPETITIVE ADVANTAGE */}
       <section className="bg-neutral-50 py-16 sm:py-20 border-y border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           
           {/* Target Markets */}
           <div className="space-y-6">
@@ -273,7 +273,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
               {COMPANY_PROFILE_DATA.targetMarkets.map((m, idx) => (
                 <div
                   key={idx}
-                  className="bg-white border border-neutral-200 rounded-3xl p-7 space-y-3 shadow-sm hover:shadow-md transition-all duration-300"
+                  className="tde-panel bg-white border border-neutral-200 rounded-3xl p-7 space-y-3 shadow-sm hover:shadow-md transition-all duration-300"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-neutral-900 flex items-center gap-2">
@@ -304,7 +304,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
               {COMPANY_PROFILE_DATA.competitiveAdvantages.map((adv) => (
                 <div
                   key={adv.id}
-                  className="bg-white border border-neutral-200 rounded-3xl p-6 space-y-3 shadow-sm hover:shadow-md transition-all duration-300"
+                  className="tde-panel bg-white border border-neutral-200 rounded-3xl p-6 space-y-3 shadow-sm hover:shadow-md transition-all duration-300"
                 >
                   <div className="w-10 h-10 rounded-xl bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 font-bold shadow-sm">
                     <ShieldCheck className="w-5 h-5 text-amber-600" />
@@ -320,7 +320,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
       </section>
 
       {/* STRATEGIC TRACKS SECTION */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
@@ -350,7 +350,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
         </div>
 
         {/* Selected Track Detail Card */}
-        <div className="bg-white rounded-3xl p-8 sm:p-10 border border-neutral-200 shadow-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div className="tde-panel bg-white rounded-3xl p-8 sm:p-10 border border-neutral-200 shadow-md grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           <div className="lg:col-span-7 space-y-4">
             <span className="text-xs font-mono font-bold uppercase text-amber-600">Track 0{STRATEGIC_TRACKS.findIndex(t => t.id === selectedTrack) + 1}</span>
             <h3 className="text-2xl font-black text-neutral-900">{currentTrack.title}</h3>
@@ -366,7 +366,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
             <div className="pt-4">
               <button
                 onClick={() => onOpenQuoteModal(`Advisory on ${currentTrack.title}`)}
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
+                className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all cursor-pointer"
               >
                 <span>Consult Our Desk</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -385,7 +385,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
 
       {/* EXECUTIVE DIRECTORATE SECTION (REDESIGNED: MODERN, CLEAN, DIRECT BIO ON CLICK) */}
       <section id="executive-directorate-section" className="bg-neutral-50/80 py-20 sm:py-24 border-y border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <h2 className="text-3xl sm:text-4xl font-black text-neutral-900 tracking-tight">
@@ -409,7 +409,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
                 <div
                   key={exec.id}
                   onClick={() => handleOpenExecutive(exec)}
-                  className="bg-white rounded-3xl p-6 sm:p-7 border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-neutral-400 transition-all duration-300 cursor-pointer flex flex-col justify-between group hover:-translate-y-1"
+                  className="tde-panel bg-white rounded-3xl p-6 sm:p-7 border border-neutral-200/90 shadow-sm hover:shadow-xl hover:border-neutral-400 transition-all duration-300 cursor-pointer flex flex-col justify-between group hover:-translate-y-1"
                 >
                   <div className="space-y-4">
                     {/* Header with Avatar, Name, and Role */}
@@ -492,8 +492,8 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
       />
 
       {/* PARTNERSHIP APPROACH & CONTACT CALLOUT */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
-        <div className="bg-white border border-neutral-200 rounded-3xl p-8 sm:p-12 space-y-8 shadow-sm">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="tde-panel bg-white border border-neutral-200 rounded-3xl p-8 sm:p-12 space-y-8 shadow-sm">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <h2 className="text-3xl font-black text-neutral-900 tracking-tight">
               Our Partnership Approach
@@ -532,7 +532,7 @@ export const AboutTab: React.FC<AboutTabProps> = ({ setActiveTab, onOpenQuoteMod
           <div className="text-center pt-4">
             <button
               onClick={() => onOpenQuoteModal('Strategic Partnership')}
-              className="inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all active:scale-95 cursor-pointer"
+              className="tde-button inline-flex items-center gap-2 px-8 py-3.5 rounded-xl bg-amber-500 hover:bg-amber-600 text-white text-xs font-bold uppercase tracking-wider shadow-md transition-all active:scale-95 cursor-pointer"
             >
               <span>Initiate Strategic Discussion</span>
               <ArrowRight className="w-4 h-4 text-white" />

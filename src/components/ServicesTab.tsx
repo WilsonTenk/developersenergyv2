@@ -78,10 +78,10 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
   ];
 
   return (
-    <div className="space-y-20 sm:space-y-24 pb-20 bg-white">
+    <div className="tde-page space-y-20 sm:space-y-24 pb-20 bg-white">
       {/* PAGE HEADER */}
-      <section className="bg-white py-14 border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <section className="tde-page-intro bg-white py-14 border-b border-neutral-200">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <h1 className="text-4xl sm:text-5xl font-black text-neutral-900 tracking-tight leading-tight">
             Our Service Catalogue & Scope
           </h1>
@@ -92,8 +92,8 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
       </section>
 
       {/* OPERATIONAL CAPABILITIES STATS BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="tde-container tde-metrics max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="tde-panel bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1 border-r border-neutral-100 last:border-none">
             <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               <AnimatedCounter value={5} suffix=" Core" duration={1.8} />
@@ -122,7 +122,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
       </section>
 
       {/* SERVICE BENTO NAV TABS */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {CORE_SERVICES.map((s) => {
             const isActive = activeServiceId === s.id;
@@ -157,7 +157,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
         </div>
 
         {/* ACTIVE SERVICE DETAILED BENTO DISPLAY */}
-        <div className="mt-8 bg-neutral-50 rounded-3xl p-8 lg:p-10 border border-neutral-200 space-y-8 shadow-sm">
+        <div className="tde-panel mt-8 bg-neutral-50 rounded-3xl p-8 lg:p-10 border border-neutral-200 space-y-8 shadow-sm">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-neutral-200">
             <div className="space-y-2">
               <div className="flex items-center gap-4">
@@ -179,14 +179,14 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
               {activeService.id === 'trade-facilitation' && (
                 <button
                   onClick={onOpenCalculator}
-                  className="px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-900 bg-white border border-neutral-300 hover:bg-neutral-100 transition-all min-h-[44px] shadow-sm cursor-pointer"
+                  className="tde-button px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-900 bg-white border border-neutral-300 hover:bg-neutral-100 transition-all min-h-[44px] shadow-sm cursor-pointer"
                 >
                   Estimate Cargo Value
                 </button>
               )}
               <button
                 onClick={() => onOpenQuoteModal(activeService.title)}
-                className="px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 transition-all shadow-md flex items-center gap-2 min-h-[44px] cursor-pointer"
+                className="tde-button px-6 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 transition-all shadow-md flex items-center gap-2 min-h-[44px] cursor-pointer"
               >
                 <span>Consult on {activeService.title}</span>
                 <ArrowRight className="w-4 h-4 text-white" />
@@ -200,7 +200,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2">
             {/* Highlights & Scope */}
-            <div className="space-y-4 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <div className="tde-panel space-y-4 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
                 <Zap className="w-4 h-4 text-amber-600" />
                 Operational Scope & Capabilities
@@ -216,7 +216,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
             </div>
 
             {/* Deliverables */}
-            <div className="space-y-4 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+            <div className="tde-panel space-y-4 bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
               <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-900 flex items-center gap-2">
                 <FileCheck className="w-4 h-4 text-amber-600" />
                 Key Client Deliverables
@@ -254,7 +254,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
 
       {/* STRATEGIC VALUE BRIDGE WORKFLOW */}
       <section className="bg-neutral-50 py-16 sm:py-20 border-y border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <h2 className="text-3xl font-black text-neutral-900 tracking-tight">
               Value Chain Intermediary Workflow
@@ -298,7 +298,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
 
           {/* Active Workflow Bento Detail Card */}
           {workflowSteps.find((w) => w.step === activeWorkflowStep) && (
-            <div className="bg-white border border-neutral-200 rounded-3xl p-8 sm:p-10 shadow-sm">
+            <div className="tde-panel bg-white border border-neutral-200 rounded-3xl p-8 sm:p-10 shadow-sm">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
                 <div className="lg:col-span-8 space-y-5">
                   <div className="text-xs text-amber-600 font-bold uppercase tracking-widest">
@@ -329,7 +329,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
                   </div>
                 </div>
 
-                <div className="lg:col-span-4 bg-neutral-950 text-white p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-4 text-center shadow-xl">
+                <div className="tde-panel lg:col-span-4 bg-neutral-950 text-white p-6 sm:p-8 rounded-3xl border border-neutral-800 space-y-4 text-center shadow-xl">
                   <Flame className="w-8 h-8 text-amber-400 mx-auto" />
                   <h4 className="text-base font-bold text-white">Need Advisory at this Stage?</h4>
                   <p className="text-xs text-neutral-300 leading-relaxed">
@@ -337,7 +337,7 @@ export const ServicesTab: React.FC<ServicesTabProps> = ({ onOpenQuoteModal, onOp
                   </p>
                   <button
                     onClick={() => onOpenQuoteModal(workflowSteps[activeWorkflowStep - 1].title)}
-                    className="w-full py-3.5 rounded-xl text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 transition-all uppercase tracking-wider shadow-md min-h-[44px] cursor-pointer"
+                    className="tde-button w-full py-3.5 rounded-xl text-xs font-bold text-white bg-amber-500 hover:bg-amber-600 transition-all uppercase tracking-wider shadow-md min-h-[44px] cursor-pointer"
                   >
                     Discuss Stage {activeWorkflowStep} Deal
                   </button>

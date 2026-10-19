@@ -43,7 +43,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white border border-neutral-300 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[92vh] overflow-y-auto relative animate-in zoom-in-95 duration-200 text-black shadow-2xl">
+      <div className="tde-panel bg-white border border-neutral-300 rounded-3xl max-w-2xl w-full p-6 sm:p-8 space-y-6 max-h-[92vh] overflow-y-auto relative animate-in zoom-in-95 duration-200 text-black shadow-2xl">
         <div className="flex items-start justify-between border-b border-neutral-200 pb-4">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center">
@@ -71,7 +71,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
             <select
               value={product}
               onChange={(e) => setProduct(e.target.value as any)}
-              className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black"
+              className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black"
             >
               <option value="gasoil">Gasoil 10ppm</option>
               <option value="gasoline">Unleaded Gasoline 95</option>
@@ -89,7 +89,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
               step={500}
               value={volumeMT}
               onChange={(e) => setVolumeMT(Number(e.target.value) || 0)}
-              className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black font-mono-num font-bold"
+              className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black font-mono-num font-bold"
             />
           </div>
 
@@ -98,7 +98,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
             <select
               value={incoterm}
               onChange={(e) => setIncoterm(e.target.value as any)}
-              className="w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black"
+              className="tde-field w-full bg-neutral-50 border border-neutral-300 text-black text-xs rounded-xl px-3 py-2.5 focus:outline-none focus:border-black"
             >
               <option value="CIF">CIF Tema/Takoradi (+Freight)</option>
               <option value="FOB">FOB Load Port</option>
@@ -107,7 +107,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
         </div>
 
         {/* Live Calculation Output Card */}
-        <div className="bg-neutral-50 rounded-2xl p-6 border border-neutral-200 space-y-4">
+        <div className="tde-panel bg-neutral-50 rounded-2xl p-6 border border-neutral-200 space-y-4">
           <div className="flex items-center justify-between border-b border-neutral-200 pb-3 text-xs">
             <span className="text-neutral-500 font-semibold uppercase tracking-wider">
               ESTIMATED CARGO BREAKDOWN
@@ -119,7 +119,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="bg-white p-3 rounded-xl border border-neutral-200">
-              <span className="text-[10px] text-neutral-500 uppercase block">FOB Benchmark</span>
+              <span className="text-[10px] text-neutral-500 uppercase block">Illustrative FOB assumption</span>
               <span className="text-base font-bold text-black font-mono-num">
                 ${currentProduct.priceUSD.toFixed(2)} / MT
               </span>
@@ -148,7 +148,7 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
           </div>
 
           <p className="text-[11px] text-neutral-500 leading-relaxed italic border-t border-neutral-200 pt-3">
-            * Note: Calculations are based on indicative Platts/Argus daily benchmark rates and standard conversion density factors. Official deal term sheets subject to firm NPA window confirmation.
+            * Illustration only: this calculator uses fixed example product prices, FX and freight assumptions, not current Platts/Argus prices or the published ticker. Request a firm quote before making a commercial decision.
           </p>
         </div>
 
@@ -156,14 +156,14 @@ export const TradeCalculatorModal: React.FC<TradeCalculatorModalProps> = ({
         <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
           <button
             onClick={onClose}
-            className="w-full sm:w-auto px-5 py-2.5 rounded-full text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300"
+            className="tde-button w-full sm:w-auto px-5 py-2.5 rounded-full text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 border border-neutral-300"
           >
             Close Estimator
           </button>
 
           <button
             onClick={handleApplyToQuote}
-            className="w-full sm:w-auto px-7 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-black hover:bg-neutral-800 transition-colors shadow-md flex items-center justify-center gap-2"
+            className="tde-button w-full sm:w-auto px-7 py-2.5 rounded-full text-xs font-extrabold uppercase tracking-wider text-white bg-black hover:bg-neutral-800 transition-colors shadow-md flex items-center justify-center gap-2"
           >
             <span>Request Firm Consultation Quote</span>
             <ArrowRight className="w-4 h-4" />
