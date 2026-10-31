@@ -2,5 +2,6 @@
 deployment:
   tasks:
     - export DEPLOYPATH=$HOME/public_html/
-    - /bin/cp -R dist/* $DEPLOYPATH
-    - /bin/cp dist/.htaccess $DEPLOYPATH
+    # When the repo is cloned straight into public_html, the root .htaccess
+    # serves dist/ in place; copying would dirty the clone and block pulls.
+    - if [ "$(pwd -P)" != "$(cd $DEPLOYPATH && pwd -P)" ]; then /bin/cp -R dist/. $DEPLOYPATH; fi

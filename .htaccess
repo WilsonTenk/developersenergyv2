@@ -1,23 +1,23 @@
 # ----------------------------------------------------------------------
 # Root Apache / cPanel configuration for The Developers Energy
 # ----------------------------------------------------------------------
+# Used when the whole repository sits in public_html (cPanel Git Version
+# Control clones it there). Every request is served from the built dist/
+# folder; dist/.htaccess then handles SPA routing back to dist/index.html.
+
+DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteBase /
 
-  # If dist directory exists and request is not already in dist
-  RewriteCond %{DOCUMENT_ROOT}/dist -d [OR]
-  RewriteCond %{REQUEST_URI} ^/
+  # Never expose source code, build config or package manifests
+  RewriteRule ^(src|lib|node_modules|\.git)(/|$) - [F,L]
+  RewriteRule ^(package(-lock)?\.json|bun\.lock|tsconfig\.json|vite\.config\.ts|metadata\.json|README\.md|\.env.*|\.cpanel\.yml|\.gitignore)$ - [F,L]
+
+  # Send everything (including the homepage "/") into dist/
   RewriteCond %{REQUEST_URI} !^/dist/
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ dist/$1 [L]
-
-  # Fallback to dist/index.html for SPA routing
-  RewriteCond %{DOCUMENT_ROOT}/dist/index.html -f
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^ dist/index.html [L]
 </IfModule>
 
 # Ensure proper MIME types for modern JS modules and assets
