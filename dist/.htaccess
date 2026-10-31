@@ -25,13 +25,16 @@ Options -Indexes
   RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
   RewriteRule ^(?:src|lib|node_modules)(?:/|$) - [F,L,NC]
 
+  # Production cPanel serves TLS directly. Verify this rule if adding a TLS proxy.
+  # Redirect before any internal rewrite so clean URLs are covered too. When the
+  # repo root .htaccess routes requests in here, it has already redirected.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} ^www\. [NC]
+  RewriteRule ^ https://thedevelopersenergy.com%{REQUEST_URI} [R=301,L]
+
   # Serve build-generated metadata without redirecting clean URLs.
   RewriteRule ^(about|services|insights|blog|training|contact)/?$ $1.html [L]
   RewriteRule ^blog/crude-oil-volatility/?$ blog/crude-oil-volatility.html [L]
-
-  # Production cPanel serves TLS directly. Verify this rule if adding a TLS proxy.
-  RewriteCond %{HTTPS} !=on
-  RewriteRule ^ https://thedevelopersenergy.com%{REQUEST_URI} [R=301,L]
 
   # Don't rewrite files or directories that exist
   RewriteCond %{REQUEST_FILENAME} -f [OR]
