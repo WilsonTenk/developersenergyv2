@@ -1,7 +1,8 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=$HOME/public_html/
-    # When the repo is cloned straight into public_html, the root .htaccess
-    # serves dist/ in place; copying would dirty the clone and block pulls.
+    # The repo is cloned straight into this domain's document root, where the
+    # root .htaccess serves dist/ in place, so nothing needs copying. The guard
+    # only copies dist/ if the repo is ever cloned somewhere else.
+    - export DEPLOYPATH=$HOME/public_html/thedevelopersenergy.com/
     - if [ "$(pwd -P)" != "$(cd $DEPLOYPATH && pwd -P)" ]; then /bin/cp -R dist/. $DEPLOYPATH; fi
