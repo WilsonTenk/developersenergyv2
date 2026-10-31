@@ -31,7 +31,7 @@ export const ComingSoonTab: React.FC<ComingSoonTabProps> = ({
     <div className="min-h-[75vh] flex flex-col justify-center py-20 px-4 sm:px-6 lg:px-8 bg-neutral-50/50">
       <div className="max-w-4xl mx-auto w-full">
         {/* Main Card */}
-        <div className="bg-white rounded-3xl p-8 sm:p-14 border border-neutral-200/90 shadow-xl text-center space-y-8 relative overflow-hidden">
+        <div className="tde-panel bg-white rounded-3xl p-8 sm:p-14 border border-neutral-200/90 shadow-xl text-center space-y-8 relative overflow-hidden">
           {/* Subtle Background Accent */}
           <div className="absolute -top-24 -right-24 w-72 h-72 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-neutral-900/5 rounded-full blur-3xl pointer-events-none" />
@@ -71,14 +71,14 @@ export const ComingSoonTab: React.FC<ComingSoonTabProps> = ({
           <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
             <button
               onClick={() => setActiveTab('services')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-md transition-all active:scale-95"
+              className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-md transition-all active:scale-95"
             >
               <span>Explore Active Services</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
               onClick={() => onOpenQuoteModal(isInsights ? 'Market Intelligence & Advisory' : isTraining ? 'Executive Training Enrolment' : 'General Trade Inquiries')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-900 bg-neutral-100 hover:bg-neutral-200 border border-neutral-200 transition-all"
+              className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl text-xs font-bold uppercase tracking-wider text-neutral-900 bg-neutral-100 hover:bg-neutral-200 border border-neutral-200 transition-all"
             >
               <Mail className="w-4 h-4" />
               <span>Contact Trade Desk</span>

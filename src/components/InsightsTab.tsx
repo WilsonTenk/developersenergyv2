@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState } from 'react';
 import { InsightArticle } from '../types';
 import { AnimatedCounter } from './common/AnimatedCounter';
@@ -21,17 +22,13 @@ interface InsightsTabProps {
 
 export const InsightsTab: React.FC<InsightsTabProps> = () => {
   const [subscribed, setSubscribed] = useState(false);
+  const newsletterInquiry = useInquiryForm('Insights newsletter signup');
   const [subEmail, setSubEmail] = useState('');
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (subEmail) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 4000);
-      setSubEmail('');
-    }
+    if (await newsletterInquiry.send({ email: subEmail.trim(), message: 'Please add me to the market briefing mailing list.' })) setSubscribed(true);
   };
-
   const upcomingReports = [
     {
       title: 'West African Petroleum Supply & Demand Outlook (2026–2027)',
@@ -60,10 +57,10 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
   ];
 
   return (
-    <div className="space-y-16 sm:space-y-20 pb-20 bg-white transition-colors duration-200">
+    <div className="tde-page space-y-16 sm:space-y-20 pb-20 bg-white transition-colors duration-200">
       {/* PAGE HEADER */}
-      <section className="bg-white py-14 border-b border-neutral-200/80">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+      <section className="tde-page-intro bg-white py-14 border-b border-neutral-200/80">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <span className="text-xs font-semibold uppercase tracking-wider text-amber-700 bg-amber-50 border border-amber-200 px-3.5 py-1.5 rounded-full inline-block shadow-sm">
             Market Intelligence
           </span>
@@ -77,8 +74,8 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
       </section>
 
       {/* INTELLIGENCE METRICS BAR */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
-        <div className="bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+      <section className="tde-container tde-metrics max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 sm:-mt-8 relative z-20">
+        <div className="tde-panel bg-white rounded-2xl p-6 sm:p-8 shadow-xl border border-neutral-200/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           <div className="space-y-1 border-r border-neutral-100 last:border-none">
             <span className="block text-2xl sm:text-4xl font-black text-neutral-900 tracking-tight">
               <AnimatedCounter value={100} suffix="%" duration={1.5} />
@@ -107,8 +104,8 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
       </section>
 
       {/* COMING SOON HERO BANNER */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-neutral-950 text-white rounded-3xl p-8 sm:p-12 lg:p-16 border border-neutral-800 shadow-2xl relative overflow-hidden text-center space-y-8">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-panel bg-neutral-950 text-white rounded-3xl p-8 sm:p-12 lg:p-16 border border-neutral-800 shadow-2xl relative overflow-hidden text-center space-y-8">
           <div className="max-w-3xl mx-auto space-y-4">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
               <Clock className="w-4 h-4 text-amber-400" />
@@ -131,7 +128,7 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
               return (
                 <div
                   key={idx}
-                  className="bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-amber-500/50 transition-colors"
+                  className="tde-panel bg-neutral-900/90 border border-neutral-800 rounded-2xl p-5 sm:p-6 space-y-3 hover:border-amber-500/50 transition-colors"
                 >
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-400 bg-amber-500/10 px-2.5 py-1 rounded-md border border-amber-500/20">
@@ -161,25 +158,26 @@ export const InsightsTab: React.FC<InsightsTabProps> = () => {
             {subscribed ? (
               <div className="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold flex items-center justify-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-amber-400" />
-                <span>Subscribed! You will be the first to receive our inaugural release.</span>
+                <span>Sign-up request submitted to our team.</span>
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-wrap gap-2">
                 <input
                   type="email"
                   required
                   value={subEmail}
                   onChange={(e) => setSubEmail(e.target.value)}
                   placeholder="Enter corporate email..."
-                  className="flex-1 bg-neutral-900 border border-neutral-700 text-white text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500"
+                  className="tde-field flex-1 bg-neutral-900 border border-neutral-700 text-white text-xs rounded-xl px-4 py-3 focus:outline-none focus:border-amber-500"
                 />
                 <button
-                  type="submit"
-                  className="px-6 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider text-neutral-950 bg-amber-500 hover:bg-amber-400 transition-all shrink-0 cursor-pointer"
+                  type="submit" disabled={newsletterInquiry.pending}
+                  className="tde-button px-6 py-3 rounded-xl text-xs font-extrabold uppercase tracking-wider text-neutral-950 bg-amber-500 hover:bg-amber-400 transition-all shrink-0 cursor-pointer"
                 >
                   Notify Me
                 </button>
-              </form>
+              <InquiryFormStatus form={newsletterInquiry} />
+</form>
             )}
           </div>
         </div>

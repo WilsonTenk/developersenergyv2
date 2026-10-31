@@ -45,7 +45,7 @@ export const Header: React.FC<HeaderProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-50 transition-all duration-300">
+    <header className="tde-header sticky top-0 z-50 transition-all duration-300">
       {/* Main navigation bar */}
       <div
         className={`transition-all duration-300 ${
@@ -54,7 +54,7 @@ export const Header: React.FC<HeaderProps> = ({
             : 'bg-white border-b border-neutral-200/90 shadow-sm'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between min-h-[76px] sm:min-h-[84px] py-2">
             
             {/* Logo — sits directly on header background, prominently sized */}
@@ -105,7 +105,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="hidden lg:flex items-center space-x-3">
               <button
                 onClick={onOpenCalculator}
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 border border-neutral-200 transition-all min-h-[40px]"
+                className="tde-button inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-semibold text-neutral-700 bg-neutral-100 hover:bg-neutral-200 border border-neutral-200 transition-all min-h-[40px]"
                 title="Launch Cargo & Trade Value Estimator"
               >
                 <Calculator className="w-3.5 h-3.5 text-neutral-600" />
@@ -114,7 +114,7 @@ export const Header: React.FC<HeaderProps> = ({
 
               <button
                 onClick={() => onOpenQuoteModal()}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-sm transition-all active:scale-[0.98] min-h-[40px]"
+                className="tde-button inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider text-white bg-amber-500 hover:bg-amber-600 shadow-sm transition-all active:scale-[0.98] min-h-[40px]"
               >
                 <span>Get a Quote</span>
                 <ArrowUpRight className="w-4 h-4" />
@@ -125,7 +125,7 @@ export const Header: React.FC<HeaderProps> = ({
             <div className="flex lg:hidden items-center justify-end space-x-2">
               <button
                 onClick={() => onOpenQuoteModal()}
-                className="h-10 px-3.5 text-xs font-bold uppercase tracking-wider text-white bg-amber-500 rounded-lg shadow-sm hover:bg-amber-600 active:scale-95 transition-all flex items-center justify-center gap-1"
+                className="tde-button h-10 px-3.5 text-xs font-bold uppercase tracking-wider text-white bg-amber-500 rounded-lg shadow-sm hover:bg-amber-600 active:scale-95 transition-all flex items-center justify-center gap-1"
               >
                 <span>Quote</span>
                 <ArrowUpRight className="w-3.5 h-3.5" />
@@ -171,7 +171,7 @@ export const Header: React.FC<HeaderProps> = ({
                   setMobileMenuOpen(false);
                   onOpenCalculator();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 text-sm font-semibold hover:bg-neutral-200 min-h-[44px]"
+                className="tde-button w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-neutral-100 border border-neutral-200 text-neutral-900 text-sm font-semibold hover:bg-neutral-200 min-h-[44px]"
               >
                 <Calculator className="w-4 h-4" />
                 <span>Trade Value Estimator</span>
@@ -181,7 +181,7 @@ export const Header: React.FC<HeaderProps> = ({
                   setMobileMenuOpen(false);
                   onOpenQuoteModal();
                 }}
-                className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-amber-500 text-white text-sm font-bold uppercase tracking-wider hover:bg-amber-600 min-h-[44px]"
+                className="tde-button w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-amber-500 text-white text-sm font-bold uppercase tracking-wider hover:bg-amber-600 min-h-[44px]"
               >
                 <span>Get a Quote</span>
                 <ArrowUpRight className="w-4 h-4" />

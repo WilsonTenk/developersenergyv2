@@ -1,4 +1,5 @@
 import { PageTab } from '../types';
+import { BLOG_POSTS } from '../data/blogData';
 
 interface TabSeoConfig {
   title: string;
@@ -21,42 +22,42 @@ export const TAB_SEO_DATA: Record<PageTab, TabSeoConfig> = {
     title: 'Corporate Profile & Executive Directorate | The Developers Energy Limited',
     description: 'Discover our corporate leadership, strategic governance tracks, executive director profiles, and West African physical energy commodity trade expertise in Accra, Ghana.',
     keywords: 'Kennedy Awuku Addo, Jeffrey Kwesi Boateng, energy executives Ghana, West Africa commodity traders, BDC license, energy infrastructure advisory, Ghana oil directors',
-    canonicalPath: '#about',
+    canonicalPath: 'about',
     ogImage: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=1600&auto=format&fit=crop'
   },
   services: {
     title: 'Physical Energy Trading & Advisory Solutions | The Developers Energy',
     description: 'Comprehensive physical petroleum trading (Gasoil 10ppm, Mogas 95, Jet A-1), terminal tank farm storage, STS lightering, trade finance (LC lines), and downstream regulatory advisory.',
     keywords: 'crude oil allocation, Gasoil 10ppm Ghana, MOGAS trade, trade finance Letters of Credit, terminal storage feasibility, downstream petroleum advisory, STS lightering Tema, Takoradi bunkering',
-    canonicalPath: '#services',
+    canonicalPath: 'services',
     ogImage: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?q=80&w=1600&auto=format&fit=crop'
   },
   insights: {
     title: 'Market Intelligence & Petroleum Reports | The Developers Energy',
     description: 'High-precision Ghana petroleum market analysis, Platts and Argus pricing parity reports, NPA fuel pricing window trends, and West African supply/demand analytics with downloadable PDF briefs.',
     keywords: 'Ghana petroleum market analysis, NPA fuel pricing window, West Africa energy insights, commodity price commentary, regulatory updates, petroleum trade briefs, Platts FOB Med parity Ghana',
-    canonicalPath: '#insights',
+    canonicalPath: 'insights',
     ogImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop'
   },
   blog: {
     title: 'Executive Blog & Energy Thought Leadership | The Developers Energy',
     description: 'In-depth thought leadership, editorial commentary, and technical briefings on West African hydrocarbon markets, terminal logistics, trade finance, and energy transition dynamics.',
     keywords: 'energy blog Ghana, petroleum trade commentary, West Africa refining, energy transition Africa, oil market analysis, downstream trade perspectives',
-    canonicalPath: '#blog',
+    canonicalPath: 'blog',
     ogImage: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?q=80&w=1600&auto=format&fit=crop'
   },
   training: {
-    title: 'Executive Training & Masterclasses | The Developers Energy Institute',
-    description: 'Specialized corporate masterclasses and professional certification in petroleum trading operations, Incoterms 2020, depot HSSE compliance, and price risk derivatives in Accra, Ghana.',
+    title: 'Executive Training — Coming Soon | The Developers Energy',
+    description: 'Executive energy training and professional development from The Developers Energy. Our training programmes are coming soon; contact our team for updates.',
     keywords: 'energy trading masterclass, Incoterms 2020 petroleum, depot HSSE certification, price risk hedging training, Accra energy executive masterclass, BDC staff training Ghana',
-    canonicalPath: '#training',
+    canonicalPath: 'training',
     ogImage: 'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1600&auto=format&fit=crop'
   },
   contact: {
     title: 'Contact Trade Desk & Energy Inquiries | The Developers Energy Limited',
     description: 'Reach our executive trading and advisory desk in Accra for petroleum transaction quotes, investment opportunities, physical cargo allocations, or strategic energy partnerships.',
     keywords: 'contact The Developers Energy, Accra energy trade desk, petroleum quote Ghana, commodity brokerage inquiry, energy partnership, Tema fuel off-take',
-    canonicalPath: '#contact',
+    canonicalPath: 'contact',
     ogImage: 'https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1600&auto=format&fit=crop'
   }
 };
@@ -65,8 +66,20 @@ export const TAB_SEO_DATA: Record<PageTab, TabSeoConfig> = {
  * Updates document meta tags, canonical URL, OpenGraph, Twitter Cards,
  * and dynamically injects BreadcrumbList JSON-LD schema per tab.
  */
-export function updatePageSeo(tab: PageTab) {
-  const config = TAB_SEO_DATA[tab] || TAB_SEO_DATA.home;
+export function getPageSeo(tab: PageTab, articleSlug?: string) {
+  const post = tab === 'blog' && articleSlug
+    ? BLOG_POSTS.find(p => p.id === articleSlug || (p.id === 'blog-6' && articleSlug === 'crude-oil-volatility'))
+    : undefined;
+  return post ? {
+    ...TAB_SEO_DATA.blog,
+    title: `${post.title} | The Developers Energy`,
+    description: post.excerpt,
+    canonicalPath: `blog/${post.id === 'blog-6' ? 'crude-oil-volatility' : post.id}`,
+  } : TAB_SEO_DATA[tab] || TAB_SEO_DATA.home;
+}
+
+export function updatePageSeo(tab: PageTab, articleSlug?: string) {
+  const config = getPageSeo(tab, articleSlug);
   const baseUrl = 'https://thedevelopersenergy.com';
   const fullUrl = `${baseUrl}/${config.canonicalPath}`;
 
@@ -93,12 +106,14 @@ export function updatePageSeo(tab: PageTab) {
   setMetaTag('property', 'og:title', config.title);
   setMetaTag('property', 'og:description', config.description);
   setMetaTag('property', 'og:url', fullUrl);
+  setMetaTag('property', 'og:type', config.canonicalPath.startsWith('blog/') ? 'article' : 'website');
   if (config.ogImage) {
     setMetaTag('property', 'og:image', config.ogImage);
   }
 
   // Twitter
   setMetaTag('name', 'twitter:title', config.title);
+  setMetaTag('name', 'twitter:url', fullUrl);
   setMetaTag('name', 'twitter:description', config.description);
   if (config.ogImage) {
     setMetaTag('name', 'twitter:image', config.ogImage);

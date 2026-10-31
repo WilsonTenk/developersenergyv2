@@ -19,18 +19,6 @@ export interface BlogPost {
   imageUrl?: string;
 }
 
-export interface MarketRate {
-  id: string;
-  symbol: string;
-  label: string;
-  price: number;
-  change: number;
-  changePct: number;
-  unit: string;
-  category: 'crude' | 'refined' | 'forex' | 'freight';
-  lastUpdated: string;
-}
-
 export interface ServiceItem {
   id: string;
   title: string;

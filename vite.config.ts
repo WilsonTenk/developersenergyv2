@@ -5,7 +5,8 @@ import { defineConfig } from 'vite';
 
 export default defineConfig(() => {
   return {
-    base: './',
+    // Absolute asset URLs also work when a visitor opens a nested article URL.
+    base: '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {

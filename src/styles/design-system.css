@@ -1,0 +1,101 @@
+/* Shared visual system. Change these tokens to tune every page together.
+   Content, routing, form submission and SEO remain owned by their existing modules. */
+:root {
+  --tde-width: 1160px;
+  --tde-gutter: clamp(1.25rem, 4vw, 3rem);
+  --tde-section-gap: clamp(3.75rem, 7vw, 6.5rem);
+  --tde-card-radius: 0.5rem;
+  --tde-button-radius: 999px;
+  --tde-ink: #171717;
+  --tde-paper: #ffffff;
+  --tde-wash: #f7f7f5;
+  --tde-gold: #f59e0b;
+  --tde-rule: #e5e5e5;
+  --tde-shadow: 0 8px 30px rgb(0 0 0 / 4%);
+}
+
+.tde-container { max-width: var(--tde-width); padding-inline: var(--tde-gutter); }
+.tde-page { background: var(--tde-paper); padding-bottom: var(--tde-section-gap); }
+.tde-page > section { margin-bottom: 0; }
+.tde-page > section + section { margin-top: var(--tde-section-gap); }
+.tde-page h2 { font-size: clamp(1.65rem, 2.9vw, 2.5rem); line-height: 1.22; font-weight: 700; letter-spacing: -.045em; }
+.tde-page p { line-height: 1.8; }
+.tde-page h3 { line-height: 1.35; }
+.tde-panel { border-radius: var(--tde-card-radius); box-shadow: var(--tde-shadow); }
+.tde-button { border-radius: var(--tde-button-radius); letter-spacing: .035em; min-height: 44px; box-shadow: none; }
+.tde-button svg { flex-shrink: 0; }
+.tde-field { border-radius: var(--tde-card-radius); min-height: 46px; }
+.tde-field:focus-visible { outline: 2px solid var(--tde-gold); outline-offset: 3px; }
+.tde-header > div { box-shadow: none; }
+.tde-header nav a { font-size: .75rem; letter-spacing: .01em; }
+.tde-header nav a[aria-current="page"] { border-bottom-color: var(--tde-gold); }
+
+/* Broad imagery, a clear reading column and a compact feature card. */
+.tde-hero { min-height: 620px; }
+.tde-hero > .tde-container { padding-block: clamp(3rem, 6vw, 5rem); }
+.tde-hero h1 { font-size: clamp(2rem, 4.3vw, 3.8rem); line-height: 1.12; letter-spacing: -.055em; }
+.tde-hero h1 span { line-height: inherit; }
+.tde-hero-copy { max-width: 680px; }
+.tde-hero-copy p { max-width: 51ch; font-size: .95rem; }
+.tde-hero-aside .tde-panel { border-radius: 0; border: 0; border-top: 3px solid var(--tde-gold); padding: 1.75rem; background: rgb(255 255 255 / 96%); }
+.tde-hero-aside h3 { font-size: 1.15rem; }
+.tde-page > .tde-metrics { margin-top: 0; padding-block: 2rem; border-bottom: 1px solid var(--tde-rule); }
+.tde-metrics > div { border: 0; box-shadow: none; border-radius: 0; padding: 0; }
+.tde-metrics span.block { font-size: clamp(1.5rem, 2.8vw, 2.25rem); font-weight: 600; }
+.tde-metrics span.uppercase { font-size: .65rem; letter-spacing: .09em; }
+
+/* The same editorial introduction across internal pages. */
+.tde-page-intro { position: relative; padding-block: clamp(3.5rem, 7vw, 6rem); background: var(--tde-wash); border-bottom: 0; }
+.tde-page-intro::before { content: ''; position: absolute; inset: 0 0 auto; height: 3px; background: linear-gradient(90deg, var(--tde-gold), transparent 65%); }
+.tde-page-intro h1 { max-width: 900px; font-size: clamp(2rem, 4.2vw, 3.5rem); font-weight: 700; line-height: 1.15; letter-spacing: -.05em; }
+.tde-page-intro p { max-width: 70ch; font-size: 1rem; }
+
+/* Photo-first service cards: all original bullets remain in the open. */
+.tde-service-card { background: var(--tde-paper); color: var(--tde-ink); border: 1px solid var(--tde-rule); border-radius: var(--tde-card-radius); box-shadow: none; }
+.tde-service-card h3 { color: var(--tde-ink); font-size: 1.05rem; }
+.tde-service-card li { color: #525252; align-items: flex-start; line-height: 1.75; }
+.tde-service-card li svg { margin-top: .3rem; }
+.tde-service-card button { background: var(--tde-wash); color: var(--tde-ink); border-color: var(--tde-rule); }
+.tde-service-card button svg { color: inherit; }
+.tde-service-card button:hover { background: var(--tde-ink); color: white; }
+.tde-service-card:hover h3 { color: #92400e; }
+.tde-service-card img { filter: none; }
+
+/* An open process timeline, inspired by the reference's connected steps. */
+.tde-process { background: var(--tde-wash); border: 0; padding-block: var(--tde-section-gap); }
+.tde-process h2 { text-align: center; }
+.tde-process .tde-panel { padding: 1.5rem; background: transparent; border: 0; border-radius: 0; box-shadow: none; }
+.tde-process .font-mono { display: flex; align-items: center; justify-content: center; width: 3.5rem; height: 3.5rem; border-radius: 50%; font-size: 1rem; background: var(--tde-ink); color: var(--tde-gold); position: relative; }
+.tde-process h3 { font-size: 1rem; }
+.tde-consultation { border-radius: var(--tde-card-radius); border-left: 5px solid var(--tde-ink); box-shadow: none; }
+
+/* A quiet dark footer anchors every page. Keep field/error colours explicit. */
+.tde-footer { background: var(--tde-ink); color: #f5f5f5; border-top: 4px solid var(--tde-gold); }
+.tde-footer > .container { max-width: var(--tde-width); padding: 4rem var(--tde-gutter) 2rem; }
+.tde-footer :is(.text-neutral-900, .text-neutral-950) { color: #f5f5f5; }
+.tde-footer :is(.text-neutral-500, .text-neutral-600, .text-neutral-700) { color: #c1c1c1; }
+.tde-footer :is(.border-neutral-200, .border-neutral-300) { border-color: #424242; }
+.tde-footer h3 { font-size: .75rem; letter-spacing: .08em; }
+.tde-footer nav button { text-align: left; line-height: 1.8; }
+.tde-footer button { color: #f5f5f5; }
+.tde-footer :is(a, nav button):hover { color: var(--tde-gold); }
+.tde-footer :is(.bg-white, .bg-neutral-100) { background: #292929; }
+.tde-footer input, .tde-footer textarea { background: white; color: #171717; border-color: #d4d4d4; }
+.tde-footer img { background: white; padding: .4rem; border-radius: .25rem; height: auto; max-height: 62px; }
+.tde-footer button:focus-visible, .tde-footer a:focus-visible, .tde-hero button:focus-visible { outline-color: var(--tde-gold); }
+
+@media (min-width: 1024px) {
+  .tde-hero-copy { grid-column: span 8; }
+  .tde-hero-aside { grid-column: span 4; }
+  .tde-about-preview > div > div:first-child { order: 2; grid-column: span 5; }
+  .tde-about-preview > div > div:last-child { order: 1; grid-column: span 7; padding-right: 2rem; }
+  .tde-process .tde-panel:not(:last-child)::after { content: ''; position: absolute; top: 3.25rem; left: 6rem; right: -.5rem; border-top: 1px dashed #b5b5b5; }
+}
+@media (max-width: 639px) {
+  .tde-hero { min-height: auto; }
+  .tde-hero-aside { max-width: 100%; }
+  .tde-hero-aside .tde-panel { padding: 1.25rem; }
+  .tde-metrics > div { gap: 1.5rem 1rem; }
+  .tde-panel { padding: 1.5rem; }
+  .tde-footer > .container { padding-top: 3rem; }
+}

@@ -7,12 +7,27 @@
 
 DirectoryIndex index.html
 
+<FilesMatch "(?i)^(\..*|package(-lock)?\.json|bun\.lock|.*\.(?:bak|sql|log|map|pem|key|tsx?|ya?ml))$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set X-Frame-Options "DENY"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Content-Security-Policy "base-uri 'self'; object-src 'none'; frame-ancestors 'none'"
+</IfModule>
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
 
+  # Keep ACME certificate verification available; deny other hidden paths.
+  RewriteRule (^|/)\.(?!well-known(?:/|$)) - [F,L]
+
   # Never expose source code, build config or package manifests
-  RewriteRule ^(src|lib|node_modules|\.git)(/|$) - [F,L]
+  RewriteRule ^(?:src|lib|node_modules|scripts|tests|docs)(?:/|$) - [F,L,NC]
   RewriteRule ^(package(-lock)?\.json|bun\.lock|tsconfig\.json|vite\.config\.ts|metadata\.json|README\.md|\.env.*|\.cpanel\.yml|\.gitignore)$ - [F,L]
 
   # Send everything (including the homepage "/") into dist/

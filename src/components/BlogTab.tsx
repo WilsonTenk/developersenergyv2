@@ -1,3 +1,4 @@
+import { useInquiryForm, InquiryFormStatus } from './common/InquiryForm';
 import React, { useState, useEffect } from 'react';
 import { BlogPost } from '../types';
 import { BLOG_POSTS } from '../data/blogData';
@@ -173,7 +174,7 @@ ${post.content.join('\n\n')}
           <div className="flex items-center gap-2">
             <button
               onClick={handleNativeShare}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-neutral-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 transition-colors shadow-sm cursor-pointer"
+              className="tde-button flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-neutral-900 bg-amber-50 hover:bg-amber-100 border border-amber-300 transition-colors shadow-sm cursor-pointer"
               title="Share article with others"
             >
               <Share2 className="w-3.5 h-3.5 text-amber-600" />
@@ -181,7 +182,7 @@ ${post.content.join('\n\n')}
             </button>
             <button
               onClick={handleCopyLink}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors cursor-pointer"
+              className="tde-button flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors cursor-pointer"
               title="Copy article link"
             >
               {copied ? (
@@ -192,7 +193,7 @@ ${post.content.join('\n\n')}
             </button>
             <button
               onClick={handleDownload}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-700 transition-colors shadow-sm cursor-pointer"
+              className="tde-button hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-white bg-neutral-900 hover:bg-neutral-700 transition-colors shadow-sm cursor-pointer"
             >
               {downloaded ? (
                 <><Check className="w-3.5 h-3.5 text-emerald-400" /> Downloaded!</>
@@ -202,7 +203,7 @@ ${post.content.join('\n\n')}
             </button>
             <button
               onClick={() => window.print()}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors cursor-pointer"
+              className="tde-button hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-neutral-700 bg-white border border-neutral-300 hover:bg-neutral-100 transition-colors cursor-pointer"
             >
               <Printer className="w-3.5 h-3.5" /> Print
             </button>
@@ -306,7 +307,7 @@ ${post.content.join('\n\n')}
         </div>
 
         {/* ── SHARE THIS ARTICLE ── */}
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 shadow-sm space-y-4">
+        <div className="tde-panel bg-white rounded-3xl p-6 sm:p-8 border border-neutral-200 shadow-sm space-y-4">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h3 className="text-base font-extrabold text-neutral-900 flex items-center gap-2">
@@ -328,7 +329,7 @@ ${post.content.join('\n\n')}
             {/* LinkedIn */}
             <button
               onClick={() => openShareWindow(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(getShareUrl())}`)}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              className="tde-button flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#0A66C2] hover:bg-[#004182] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
               title="Share on LinkedIn"
             >
               <Linkedin className="w-4 h-4" />
@@ -338,7 +339,7 @@ ${post.content.join('\n\n')}
             {/* X / Twitter */}
             <button
               onClick={() => openShareWindow(`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(getShareUrl())}`)}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              className="tde-button flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-950 hover:bg-neutral-800 text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
               title="Share on X"
             >
               <Twitter className="w-4 h-4" />
@@ -348,7 +349,7 @@ ${post.content.join('\n\n')}
             {/* WhatsApp */}
             <button
               onClick={() => openShareWindow(`https://api.whatsapp.com/send?text=${encodeURIComponent(post.title + ' ' + getShareUrl())}`)}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              className="tde-button flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#25D366] hover:bg-[#1EBE5D] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
               title="Share on WhatsApp"
             >
               <WhatsAppIcon className="w-4 h-4" />
@@ -358,7 +359,7 @@ ${post.content.join('\n\n')}
             {/* Facebook */}
             <button
               onClick={() => openShareWindow(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(getShareUrl())}`)}
-              className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#0d65d9] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
+              className="tde-button flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#1877F2] hover:bg-[#0d65d9] text-white text-xs font-bold transition-all shadow-sm cursor-pointer"
               title="Share on Facebook"
             >
               <Facebook className="w-4 h-4" />
@@ -368,7 +369,7 @@ ${post.content.join('\n\n')}
             {/* Copy Link */}
             <button
               onClick={handleCopyLink}
-              className="col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 text-xs font-bold transition-all cursor-pointer"
+              className="tde-button col-span-2 sm:col-span-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-neutral-100 hover:bg-neutral-200 border border-neutral-300 text-neutral-800 text-xs font-bold transition-all cursor-pointer"
               title="Copy link to clipboard"
             >
               {copied ? <Check className="w-4 h-4 text-emerald-600" /> : <Link2 className="w-4 h-4" />}
@@ -378,7 +379,7 @@ ${post.content.join('\n\n')}
         </div>
 
         {/* About TDE */}
-        <div className="bg-neutral-950 text-white rounded-3xl p-8 sm:p-10 space-y-4 mt-4">
+        <div className="tde-panel bg-neutral-950 text-white rounded-3xl p-8 sm:p-10 space-y-4 mt-4">
           <p className="text-xs font-bold uppercase tracking-wider text-amber-400">
             About The Developers Energy Limited
           </p>
@@ -388,14 +389,14 @@ ${post.content.join('\n\n')}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 pt-2">
             <button
               onClick={() => onOpenQuoteModal('Strategic Energy Advisory')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer"
+              className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer"
             >
               <span>Consult Our Advisory Desk</span>
               <ArrowRight className="w-4 h-4" />
             </button>
             <button
               onClick={onBack}
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
+              className="tde-button inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Blog
@@ -415,6 +416,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
 }) => {
   const [readingPost, setReadingPost] = useState<BlogPost | null>(null);
   const [subscribed, setSubscribed] = useState(false);
+  const newsletterInquiry = useInquiryForm('Blog newsletter signup');
   const [emailInput, setEmailInput] = useState('');
 
   // Handle direct navigation via URL slug (e.g. /blog/crude-oil-volatility)
@@ -423,11 +425,9 @@ export const BlogTab: React.FC<BlogTabProps> = ({
       const match = BLOG_POSTS.find(
         (p) =>
           p.id === initialArticleSlug ||
-          initialArticleSlug.toLowerCase().includes('crude-oil')
+          (p.id === 'blog-6' && initialArticleSlug === 'crude-oil-volatility')
       );
-      if (match) {
-        setReadingPost(match);
-      }
+      setReadingPost(match || null);
     } else {
       setReadingPost(null);
     }
@@ -442,7 +442,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
 
   const handleSelectPost = (post: BlogPost) => {
     setReadingPost(post);
-    onSelectArticleSlug?.('crude-oil-volatility');
+    onSelectArticleSlug?.(post.id === 'blog-6' ? 'crude-oil-volatility' : post.id);
   };
 
   // Show full-page article reader instead of the listing
@@ -456,23 +456,18 @@ export const BlogTab: React.FC<BlogTabProps> = ({
     );
   }
 
-  const handleSubscribe = (e: React.FormEvent) => {
+  const handleSubscribe = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (emailInput.trim()) {
-      setSubscribed(true);
-      setTimeout(() => setSubscribed(false), 5000);
-      setEmailInput('');
-    }
+    if (await newsletterInquiry.send({ email: emailInput.trim(), message: 'Please add me to the market briefing mailing list.' })) setSubscribed(true);
   };
-
   const featuredPost = BLOG_POSTS.find((p) => p.featured) ?? BLOG_POSTS[0];
 
   return (
-    <div className="space-y-16 sm:space-y-20 pb-20 bg-neutral-50 text-neutral-900 font-sans">
+    <div className="tde-page space-y-16 sm:space-y-20 pb-20 bg-neutral-50 text-neutral-900 font-sans">
 
       {/* ── 1. HEADER ── */}
       <section className="bg-neutral-950 text-white py-16 sm:py-20 border-b border-neutral-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
+        <div className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-4">
           <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-amber-500 text-neutral-950 uppercase tracking-wider inline-flex items-center gap-1.5 shadow-sm">
             <BookOpen className="w-3.5 h-3.5" />
             Executive Perspectives &amp; Thought Leadership
@@ -487,7 +482,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
       </section>
 
       {/* ── 2. ARTICLES SECTION ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 -mt-4">
+      <section className="tde-container tde-metrics max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8 -mt-4">
         <div className="flex items-center justify-between">
           <h2 className="text-xl sm:text-2xl font-extrabold text-neutral-900 tracking-tight">
             Published Articles
@@ -501,7 +496,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
         {featuredPost && (
           <button
             onClick={() => handleSelectPost(featuredPost)}
-            className="group w-full text-left bg-white rounded-3xl border border-neutral-200 hover:border-amber-400 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
+            className="tde-button group w-full text-left bg-white rounded-3xl border border-neutral-200 hover:border-amber-400 shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden cursor-pointer"
           >
             <div className="grid grid-cols-1 lg:grid-cols-2">
               {featuredPost.imageUrl && (
@@ -612,8 +607,8 @@ export const BlogTab: React.FC<BlogTabProps> = ({
       </section>
 
       {/* ── 3. NEWSLETTER + ADVISORY CTA ── */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-neutral-950 rounded-3xl p-8 sm:p-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+      <section className="tde-container max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="tde-panel bg-neutral-950 rounded-3xl p-8 sm:p-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
           {/* Newsletter */}
           <div className="space-y-5">
             <div className="space-y-2">
@@ -631,31 +626,32 @@ export const BlogTab: React.FC<BlogTabProps> = ({
             {subscribed ? (
               <div className="flex items-center gap-2 px-4 py-3 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold">
                 <CheckCircle2 className="w-4 h-4" />
-                Subscribed! You&apos;ll receive our next article release.
+                Sign-up request submitted to our team.
               </div>
             ) : (
-              <form onSubmit={handleSubscribe} className="flex gap-2">
+              <form onSubmit={handleSubscribe} className="flex flex-wrap gap-2">
                 <input
                   type="email"
                   required
                   value={emailInput}
                   onChange={(e) => setEmailInput(e.target.value)}
                   placeholder="Enter corporate email..."
-                  className="flex-1 px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-500 transition-colors"
+                  className="tde-field flex-1 px-4 py-3 rounded-xl bg-neutral-800 border border-neutral-700 text-xs text-white placeholder-neutral-500 focus:outline-none focus:border-amber-500 transition-colors"
                 />
                 <button
-                  type="submit"
-                  className="px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-md"
+                  type="submit" disabled={newsletterInquiry.pending}
+                  className="tde-button px-5 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center gap-1.5 shrink-0 cursor-pointer shadow-md"
                 >
                   <span>Subscribe</span>
                   <Send className="w-3.5 h-3.5" />
                 </button>
-              </form>
+              <InquiryFormStatus form={newsletterInquiry} />
+</form>
             )}
           </div>
 
           {/* Advisory CTA */}
-          <div className="space-y-4 bg-white/5 border border-white/10 rounded-2xl p-6">
+          <div className="tde-panel space-y-4 bg-white/5 border border-white/10 rounded-2xl p-6">
             <p className="text-white font-extrabold text-lg leading-snug">
               Ready to go beyond reading?
             </p>
@@ -664,7 +660,7 @@ export const BlogTab: React.FC<BlogTabProps> = ({
             </p>
             <button
               onClick={() => onOpenQuoteModal('Strategic Energy Advisory')}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer"
+              className="tde-button inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-neutral-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg cursor-pointer"
             >
               <span>Direct Inquiry with Advisory Desk</span>
               <ArrowRight className="w-3.5 h-3.5" />
